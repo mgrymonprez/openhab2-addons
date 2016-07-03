@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
+                          bindingId="network"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type>
+      <label>Single-Phase Power Meter</label>
+      <description><![CDATA[
+        This Object provides the information to represent a generic Single-Phase Power Meter.
+    ]]></description>
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <properties>
+         <property name="ObjectID">10243</property>
+         <property name="ObjectURN">urn:oma:lwm2m:x:10243</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+      <channels>
+         <channel id="Manufacturer" typeId="0"/>
+         <channel id="ModelNumber" typeId="1"/>
+         <channel id="SerialNumber" typeId="2"/>
+         <channel id="Description" typeId="3"/>
+         <channel id="Tension" typeId="4"/>
+         <channel id="Current" typeId="5"/>
+         <channel id="ActivePower" typeId="6"/>
+         <channel id="ReactivePower" typeId="7"/>
+         <channel id="InductiveReactivePower" typeId="8"/>
+         <channel id="CapacitiveReactivePower" typeId="9"/>
+         <channel id="ApparentPower" typeId="10"/>
+         <channel id="PowerFactor" typeId="11"/>
+         <channel id="THD-V" typeId="12"/>
+         <channel id="THD-A" typeId="13"/>
+         <channel id="ActiveEnergy" typeId="14"/>
+         <channel id="ReactiveEnergy" typeId="15"/>
+         <channel id="ApparentEnergy" typeId="16"/>
+         <channel id="Frequency" typeId="17"/>
+      </channels>
+   </thing-type>
+</thing:thing-descriptions>

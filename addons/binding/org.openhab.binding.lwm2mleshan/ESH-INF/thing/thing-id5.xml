@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
+                          bindingId="network"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type>
+      <label>Firmware Update</label>
+      <description><![CDATA[This LWM2M Object enables management of firmware which is to be updated. This Object includes installing firmware package, updating firmware, and performing actions after updating firmware.==E.6.1	Firmware Update Consideration==
+If some Objects are not supported after firmware update, the LWM2M Client MUST delete all the Object Instances of the Objects that are not supported.]]></description>
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <properties>
+         <property name="ObjectID">5</property>
+         <property name="ObjectURN">TBD</property>
+         <property name="MultipleInstances">Single</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+      <channels>
+         <channel id="Package" typeId="0"/>
+         <channel id="PackageURI" typeId="1"/>
+         <channel id="Update" typeId="2"/>
+         <channel id="State" typeId="3"/>
+         <channel id="UpdateSupportedObjects" typeId="4"/>
+         <channel id="UpdateResult" typeId="5"/>
+      </channels>
+   </thing-type>
+</thing:thing-descriptions>

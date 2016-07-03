@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
+                          bindingId="network"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <channel-type id="28" advanced="true">
+      <item-type>Contact</item-type>
+      <label>Motor OT Warning</label>
+      <description><![CDATA[Whether the motor is OT or not. 0: normal 1: OT warning]]></description>
+      <category>
+					Sensor
+				 </category>
+      <state readOnly="true"/>
+   </channel-type>
+</thing:thing-descriptions>

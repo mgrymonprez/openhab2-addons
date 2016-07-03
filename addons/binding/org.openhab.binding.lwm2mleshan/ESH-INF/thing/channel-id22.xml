@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
+                          bindingId="network"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <channel-type id="22">
+      <label>Battery Connection Status</label>
+      <description><![CDATA[Whether the battery is connected or not. 0: unconnected 1: connected]]></description>
+      <state readOnly="true"/>
+      <item-type>Contact</item-type>
+      <category>Sensor</category>
+   </channel-type>
+</thing:thing-descriptions>

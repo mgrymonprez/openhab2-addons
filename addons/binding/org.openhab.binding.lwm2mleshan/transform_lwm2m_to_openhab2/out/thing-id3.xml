@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
+                          bindingId="network"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="3">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>Device</label>
+      <description><![CDATA[This LWM2M Object provides a range of device related information which can be queried by the LWM2M Server, and a device reboot and factory reset function.]]></description>
+      <channels>
+         <channel id="Manufacturer" typeId="0"/>
+         <channel id="ModelNumber" typeId="1"/>
+         <channel id="SerialNumber" typeId="2"/>
+         <channel id="FirmwareVersion" typeId="3"/>
+         <channel id="Reboot" typeId="4"/>
+         <channel id="FactoryReset" typeId="5"/>
+         <channel id="AvailablePowerSources" typeId="6"/>
+         <channel id="PowerSourceVoltage" typeId="7"/>
+         <channel id="PowerSourceCurrent" typeId="8"/>
+         <channel id="BatteryLevel" typeId="9"/>
+         <channel id="MemoryFree" typeId="10"/>
+         <channel id="ErrorCode" typeId="11"/>
+         <channel id="ResetErrorCode" typeId="12"/>
+         <channel id="CurrentTime" typeId="13"/>
+         <channel id="UTCOffset" typeId="14"/>
+         <channel id="Timezone" typeId="15"/>
+         <channel id="SupportedBindingandModes" typeId="16"/>
+      </channels>
+      <properties>
+         <property name="ObjectID">3</property>
+         <property name="ObjectURN">TBD</property>
+         <property name="MultipleInstances">Single</property>
+         <property name="Mandatory">Mandatory</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>

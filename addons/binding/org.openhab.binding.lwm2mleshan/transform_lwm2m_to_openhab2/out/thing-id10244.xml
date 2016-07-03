@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
+                          bindingId="network"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="10244">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>VehicleControlUnit</label>
+      <description><![CDATA[This Object provides the information to represent a generic VCU(vehicle control unit).]]></description>
+      <channels>
+         <channel id="VehicleUIState" typeId="0"/>
+         <channel id="VehicleSpeed" typeId="1"/>
+         <channel id="VehicleShiftStatus" typeId="2"/>
+         <channel id="VehicleAPPosition" typeId="3"/>
+         <channel id="VehiclePower" typeId="4"/>
+         <channel id="VehicleDriveEnergy" typeId="5"/>
+         <channel id="VehicleEnergyConsumptionEfficiency" typeId="6"/>
+         <channel id="VehicleEstimatedMileage" typeId="7"/>
+         <channel id="VehicleChargeCableStatus" typeId="8"/>
+         <channel id="VehicleChargeStatus" typeId="9"/>
+         <channel id="VehicleChargeVoltage" typeId="10"/>
+         <channel id="VehicleChargeCurrent" typeId="11"/>
+         <channel id="VehicleChargeRemainingTime" typeId="12"/>
+         <channel id="BatteryPackVoltage" typeId="13"/>
+         <channel id="BatteryPackCurrent" typeId="14"/>
+         <channel id="BatteryPackRemainingCapacity" typeId="15"/>
+         <channel id="BatteryPackSOC" typeId="16"/>
+         <channel id="BatteryPackSOH" typeId="17"/>
+         <channel id="BatteryCellMinVolt" typeId="18"/>
+         <channel id="BatteryCellMaxVolt" typeId="19"/>
+         <channel id="BatteryModuleMinTemp" typeId="20"/>
+         <channel id="BatteryModuleMaxTemp" typeId="21"/>
+         <channel id="BatteryConnectionStatus" typeId="22"/>
+         <channel id="MCUVoltage" typeId="24"/>
+         <channel id="MCUTemperature" typeId="25"/>
+         <channel id="MotorSpeed" typeId="26"/>
+         <channel id="MotorTemperature" typeId="27"/>
+         <channel id="MotorOTWarning" typeId="28"/>
+         <channel id="MCUOTWarning" typeId="29"/>
+         <channel id="BatteryPackOTWarning" typeId="30"/>
+         <channel id="MCUfault" typeId="31"/>
+         <channel id="MotorError" typeId="32"/>
+      </channels>
+      <properties>
+         <property name="ObjectID">10244</property>
+         <property name="ObjectURN">urn:oma:lwm2m:x:10244</property>
+         <property name="MultipleInstances">Single</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>
