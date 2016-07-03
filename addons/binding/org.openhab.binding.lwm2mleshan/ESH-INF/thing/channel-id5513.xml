@@ -5,10 +5,10 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <channel-type id="5513">
-      <label>Latitude</label>
-      <description><![CDATA[The decimal notation of latitude, e.g. -43.5723 (World Geodetic System 1984).]]></description>
+   <channel-type id="5513" advanced="true">
+      <item-type>Number</item-type>
+      <label>Max Z Value</label>
+      <description><![CDATA[The maximum measured value along the Z axis]]></description>
       <state readOnly="true"/>
-      <item-type>String</item-type>
    </channel-type>
 </thing:thing-descriptions>

@@ -6,9 +6,11 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5850" advanced="true">
+      <item-type>Switch</item-type>
       <label>On/Off</label>
       <description><![CDATA[On/off control for the timer input, 0=OFF, 1=ON.]]></description>
-      <item-type>Switch</item-type>
-      <category>Switch</category>
+      <category>
+					Switch
+				 </category>
    </channel-type>
 </thing:thing-descriptions>

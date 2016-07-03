@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="2">
+      <item-type>Number</item-type>
       <label>Vehicle Shift Status</label>
       <description><![CDATA[Current shift status of the vehicle. 0: Neutral 1: Forward 2: Reverse]]></description>
       <state readOnly="true"/>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

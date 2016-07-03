@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="6" advanced="true">
+      <item-type>Number</item-type>
       <label>Vehicle Energy Consumption Efficiency</label>
       <description><![CDATA[Energy consumption efficiency of the vehicle.]]></description>
       <state readOnly="true"/>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

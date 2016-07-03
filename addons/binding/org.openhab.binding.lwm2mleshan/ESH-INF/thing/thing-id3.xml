@@ -5,18 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Device</label>
-      <description><![CDATA[This LWM2M Object provides a range of device related information which can be queried by the LWM2M Server, and a device reboot and factory reset function.]]></description>
+   <thing-type id="3">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3</property>
-         <property name="ObjectURN">TBD</property>
-         <property name="MultipleInstances">Single</property>
-         <property name="Mandatory">Mandatory</property>
-      </properties>
+      <label>Device</label>
+      <description><![CDATA[This LWM2M Object provides a range of device related information which can be queried by the LWM2M Server, and a device reboot and factory reset function.]]></description>
       <channels>
          <channel id="Manufacturer" typeId="0"/>
          <channel id="ModelNumber" typeId="1"/>
@@ -36,5 +30,11 @@
          <channel id="Timezone" typeId="15"/>
          <channel id="SupportedBindingandModes" typeId="16"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3</property>
+         <property name="ObjectURN">TBD</property>
+         <property name="MultipleInstances">Single</property>
+         <property name="Mandatory">Mandatory</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

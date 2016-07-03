@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="12">
+      <item-type>Number</item-type>
       <label>Vehicle Charge Remaining Time</label>
       <description><![CDATA[Remaining charging time]]></description>
       <state readOnly="true"/>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

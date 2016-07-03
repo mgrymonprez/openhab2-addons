@@ -5,18 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Humidity</label>
-      <description><![CDATA[Description: This IPSO object should be used with a humidity sensor to report a humidity measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range that can be measured by the humidity sensor. An example measurement unit is relative humidity as a percentage (ucum:%).]]></description>
+   <thing-type id="3304">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3304</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3304</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Humidity</label>
+      <description><![CDATA[Description: This IPSO object should be used with a humidity sensor to report a humidity measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range that can be measured by the humidity sensor. An example measurement unit is relative humidity as a percentage (ucum:%).]]></description>
       <channels>
          <channel id="SensorValue" typeId="5700"/>
          <channel id="MinMeasuredValue" typeId="5601"/>
@@ -26,5 +20,11 @@
          <channel id="SensorUnits" typeId="5701"/>
          <channel id="ResetMinandMaxMeasuredValues" typeId="5605"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3304</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3304</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

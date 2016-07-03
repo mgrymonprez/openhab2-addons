@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="9">
+      <item-type>Number</item-type>
       <label>Vehicle Charge Status</label>
       <description><![CDATA[Charging status of the vehicle. 1: non-charge mode 2: charging 3: charge completed 4: charging abort abnormally ]]></description>
       <state readOnly="true"/>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

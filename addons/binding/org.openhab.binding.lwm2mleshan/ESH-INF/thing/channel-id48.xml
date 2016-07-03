@@ -6,11 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="48" advanced="true">
-      <label>Tension T-R</label>
-      <description><![CDATA[
-                Voltage phase 3 to phase 1
-            ]]></description>
-      <state readOnly="true"/>
       <item-type>Number</item-type>
+      <label>Tension T-R</label>
+      <description><![CDATA[                Voltage phase 3 to phase 1            ]]></description>
+      <state readOnly="true"/>
    </channel-type>
 </thing:thing-descriptions>

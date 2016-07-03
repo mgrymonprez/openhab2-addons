@@ -6,11 +6,11 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5505" advanced="true">
+      <item-type>Switch</item-type>
       <label>Digital Input Counter Reset</label>
       <description><![CDATA[Reset the Counter value]]></description>
       <tags>
          <tag>Executable</tag>
       </tags>
-      <item-type>Switch</item-type>
    </channel-type>
 </thing:thing-descriptions>

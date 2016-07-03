@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5826" advanced="true">
+      <item-type>String</item-type>
       <label>Criticality Level</label>
       <description><![CDATA[The criticality of the event.  The device receiving the event will react in an appropriate fashion for the device.]]></description>
-      <item-type>String</item-type>
    </channel-type>
 </thing:thing-descriptions>

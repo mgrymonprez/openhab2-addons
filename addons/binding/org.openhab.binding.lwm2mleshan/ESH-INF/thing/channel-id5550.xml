@@ -6,9 +6,11 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5550">
+      <item-type>Switch</item-type>
       <label>Digital Output State</label>
       <description><![CDATA[The current state of a digital output.]]></description>
-      <item-type>Switch</item-type>
-      <category>Switch</category>
+      <category>
+					Switch
+				 </category>
    </channel-type>
 </thing:thing-descriptions>

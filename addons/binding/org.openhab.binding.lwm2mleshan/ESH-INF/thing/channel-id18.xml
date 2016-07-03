@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="18">
+      <item-type>Number</item-type>
       <label>Battery Cell MinVolt</label>
       <description><![CDATA[Minimum voltage of the battery module (with parallel connection of cells)]]></description>
       <state readOnly="true"/>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

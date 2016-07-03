@@ -5,19 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Percentage</label>
-      <description><![CDATA[This IPSO object should can be used to report measurements relative to a 0-100% scale. For example it could be used to measure the level of a liquid in a vessel or container in units of %.
-        ]]></description>
+   <thing-type id="3320">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3320</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3320</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Percentage</label>
+      <description><![CDATA[This IPSO object should can be used to report measurements relative to a 0-100% scale. For example it could be used to measure the level of a liquid in a vessel or container in units of %.        ]]></description>
       <channels>
          <channel id="SensorValue" typeId="5700"/>
          <channel id="SensorUnits" typeId="5701"/>
@@ -29,5 +22,11 @@
          <channel id="CurrentCalibration" typeId="5821"/>
          <channel id="ApplicationType" typeId="5750"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3320</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3320</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

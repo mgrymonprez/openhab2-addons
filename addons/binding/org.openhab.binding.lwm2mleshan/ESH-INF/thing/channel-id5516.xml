@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5516" advanced="true">
+      <item-type>String</item-type>
       <label>Uncertainty</label>
       <description><![CDATA[The accuracy of the position in meters.]]></description>
       <state readOnly="true"/>
-      <item-type>String</item-type>
    </channel-type>
 </thing:thing-descriptions>

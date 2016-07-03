@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5522">
+      <item-type>String</item-type>
       <label>Clip</label>
       <description><![CDATA[Audio Clip that is playable (i.e. short audio recording indicating the floor in an elevator).]]></description>
-      <item-type>String</item-type>
    </channel-type>
 </thing:thing-descriptions>

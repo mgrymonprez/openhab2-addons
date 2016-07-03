@@ -6,11 +6,11 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5523" advanced="true">
+      <item-type>Switch</item-type>
       <label>Trigger</label>
       <description><![CDATA[Trigger initiating actuation.]]></description>
       <tags>
          <tag>Executable</tag>
       </tags>
-      <item-type>Switch</item-type>
    </channel-type>
 </thing:thing-descriptions>

@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5852" advanced="true">
+      <item-type>Number</item-type>
       <label>On Time</label>
       <description><![CDATA[The time in seconds that the dimmer has been on (Dimmer value has to be &gt; 0). Writing a value of 0 resets the counter.]]></description>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

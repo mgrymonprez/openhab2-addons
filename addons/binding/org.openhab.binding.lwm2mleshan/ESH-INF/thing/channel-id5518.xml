@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5518" advanced="true">
+      <item-type>DateTime</item-type>
       <label>Timestamp</label>
       <description><![CDATA[The timestamp of when the location measurement was performed.]]></description>
       <state readOnly="true"/>
-      <item-type>DateTime</item-type>
    </channel-type>
 </thing:thing-descriptions>

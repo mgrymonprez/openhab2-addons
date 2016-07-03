@@ -5,20 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>3-Phase Power Meter</label>
-      <description><![CDATA[
-        This Object provides the information to represent a generic 3-Phase Power Meter.
-    ]]></description>
+   <thing-type id="10242">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">10242</property>
-         <property name="ObjectURN">urn:oma:lwm2m:x:10242</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>3-Phase Power Meter</label>
+      <description><![CDATA[        This Object provides the information to represent a generic 3-Phase Power Meter.    ]]></description>
       <channels>
          <channel id="Manufacturer" typeId="0"/>
          <channel id="ModelNumber" typeId="1"/>
@@ -72,5 +64,11 @@
          <channel id="Frequency" typeId="49"/>
          <channel id="NeutralCurrent" typeId="50"/>
       </channels>
+      <properties>
+         <property name="ObjectID">10242</property>
+         <property name="ObjectURN">urn:oma:lwm2m:x:10242</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

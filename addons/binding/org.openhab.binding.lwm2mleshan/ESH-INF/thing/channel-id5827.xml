@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5827" advanced="true">
+      <item-type>String</item-type>
       <label>Avg Load Adj Pct</label>
       <description><![CDATA[Defines the maximum energy usage of the receivng device, as a percentage of the device's normal maximum energy usage.]]></description>
-      <item-type>String</item-type>
    </channel-type>
 </thing:thing-descriptions>

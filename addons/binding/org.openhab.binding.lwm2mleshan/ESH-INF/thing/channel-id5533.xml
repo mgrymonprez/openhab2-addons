@@ -6,10 +6,12 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5533">
+      <item-type>Contact</item-type>
       <label>Decrease Input State</label>
       <description><![CDATA[Indicates a decrease control action.]]></description>
+      <category>
+					Sensor
+				 </category>
       <state readOnly="true"/>
-      <item-type>Contact</item-type>
-      <category>Sensor</category>
    </channel-type>
 </thing:thing-descriptions>

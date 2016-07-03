@@ -6,11 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="34" advanced="true">
-      <label>3-Phase Active Power</label>
-      <description><![CDATA[
-                3-Phase Active Power
-            ]]></description>
-      <state readOnly="true"/>
       <item-type>Number</item-type>
+      <label>3-Phase Active Power</label>
+      <description><![CDATA[                3-Phase Active Power            ]]></description>
+      <state readOnly="true"/>
    </channel-type>
 </thing:thing-descriptions>

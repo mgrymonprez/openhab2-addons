@@ -6,10 +6,12 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="30" advanced="true">
+      <item-type>Contact</item-type>
       <label>Battery Pack OT Warning</label>
       <description><![CDATA[Whether the battery pack is OT or not. 0: normal 1: OT warning]]></description>
+      <category>
+					Sensor
+				 </category>
       <state readOnly="true"/>
-      <item-type>Contact</item-type>
-      <category>Sensor</category>
    </channel-type>
 </thing:thing-descriptions>

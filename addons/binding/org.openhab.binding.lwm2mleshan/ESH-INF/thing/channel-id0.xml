@@ -6,9 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="0">
+      <item-type>Number</item-type>
       <label>Vehicle UI State</label>
       <description><![CDATA[The UI state of the vehicle. 0: idle 1: driving 2: charging 3: limp-home 4-15: reserved for future use]]></description>
       <state readOnly="true"/>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

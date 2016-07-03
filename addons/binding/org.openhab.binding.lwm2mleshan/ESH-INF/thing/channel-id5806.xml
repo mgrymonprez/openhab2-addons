@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5806" advanced="true">
+      <item-type>Number</item-type>
       <label>Active Power Calibration</label>
       <description><![CDATA[Request an active power calibration by writing the value of a calibrated load.]]></description>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

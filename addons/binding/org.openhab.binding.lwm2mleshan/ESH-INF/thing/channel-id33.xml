@@ -6,11 +6,9 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="33" advanced="true">
-      <label>THD-A T</label>
-      <description><![CDATA[
-                Total Harmonic Distortion phase 3 (Current)
-            ]]></description>
-      <state readOnly="true"/>
       <item-type>Number</item-type>
+      <label>THD-A T</label>
+      <description><![CDATA[                Total Harmonic Distortion phase 3 (Current)            ]]></description>
+      <state readOnly="true"/>
    </channel-type>
 </thing:thing-descriptions>

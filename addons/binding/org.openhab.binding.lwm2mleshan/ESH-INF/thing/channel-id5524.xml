@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5524" advanced="true">
+      <item-type>Number</item-type>
       <label>Duration</label>
       <description><![CDATA[The duration of the sound once trigger.]]></description>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

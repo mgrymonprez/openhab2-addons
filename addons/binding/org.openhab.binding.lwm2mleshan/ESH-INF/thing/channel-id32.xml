@@ -6,10 +6,12 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="32" advanced="true">
+      <item-type>Contact</item-type>
       <label>Motor Error</label>
       <description><![CDATA[Status of the battery pack. 0: normal 1: level D25 minor fault 2: level 2 critical fault]]></description>
+      <category>
+					Sensor
+				 </category>
       <state readOnly="true"/>
-      <item-type>Contact</item-type>
-      <category>Sensor</category>
    </channel-type>
 </thing:thing-descriptions>

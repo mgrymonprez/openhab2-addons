@@ -5,19 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Location</label>
-      <description><![CDATA[This IPSO object represents GPS coordinates. This object is compatible with the LWM2M management object for location, but uses reusable resources.      
-        ]]></description>
+   <thing-type id="3336">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3336</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3336</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Location</label>
+      <description><![CDATA[This IPSO object represents GPS coordinates. This object is compatible with the LWM2M management object for location, but uses reusable resources.              ]]></description>
       <channels>
          <channel id="Latitude" typeId="5513"/>
          <channel id="Longitude" typeId="5514"/>
@@ -27,5 +20,11 @@
          <channel id="Timestamp" typeId="5518"/>
          <channel id="ApplicationType" typeId="5750"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3336</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3336</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

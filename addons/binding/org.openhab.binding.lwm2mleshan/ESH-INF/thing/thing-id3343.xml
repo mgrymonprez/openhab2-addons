@@ -5,24 +5,23 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Dimmer</label>
-      <description><![CDATA[This IPSO object should be used with a dimmer or level control to report the state of the control.      
-        ]]></description>
+   <thing-type id="3343">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3343</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3343</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Dimmer</label>
+      <description><![CDATA[This IPSO object should be used with a dimmer or level control to report the state of the control.              ]]></description>
       <channels>
          <channel id="Dimmer" typeId="5851"/>
          <channel id="OnTime" typeId="5852"/>
          <channel id="OffTime" typeId="5853"/>
          <channel id="ApplicationType" typeId="5750"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3343</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3343</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

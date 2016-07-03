@@ -5,19 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Power</label>
-      <description><![CDATA[This IPSO object should be used to report power measurements. It also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor. An example measurement unit is Watts (ucum: W). This resource may be used for either real power or apparent power (units= ucum:VA) measurements. The Application type can be use for reactive power or active power for example.  
-        ]]></description>
+   <thing-type id="3328">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3328</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3328</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Power</label>
+      <description><![CDATA[This IPSO object should be used to report power measurements. It also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor. An example measurement unit is Watts (ucum: W). This resource may be used for either real power or apparent power (units= ucum:VA) measurements. The Application type can be use for reactive power or active power for example.          ]]></description>
       <channels>
          <channel id="SensorValue" typeId="5700"/>
          <channel id="SensorUnits" typeId="5701"/>
@@ -29,5 +22,11 @@
          <channel id="CurrentCalibration" typeId="5821"/>
          <channel id="ApplicationType" typeId="5750"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3328</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3328</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

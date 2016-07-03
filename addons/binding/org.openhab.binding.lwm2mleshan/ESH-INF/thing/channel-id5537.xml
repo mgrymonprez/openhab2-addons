@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5537" advanced="true">
+      <item-type>Number</item-type>
       <label>Transition Time</label>
       <description><![CDATA[The time expected to move the actuator to the new position.]]></description>
-      <item-type>Number</item-type>
    </channel-type>
 </thing:thing-descriptions>

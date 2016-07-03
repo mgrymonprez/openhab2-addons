@@ -5,23 +5,22 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Colour</label>
-      <description><![CDATA[This IPSO object should be used to report the measured value of a colour sensor in some colour space described by the units resource.      
-        ]]></description>
+   <thing-type id="3335">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
+      <label>Colour</label>
+      <description><![CDATA[This IPSO object should be used to report the measured value of a colour sensor in some colour space described by the units resource.              ]]></description>
+      <channels>
+         <channel id="Colour" typeId="5706"/>
+         <channel id="Units" typeId="5701"/>
+         <channel id="ApplicationType" typeId="5750"/>
+      </channels>
       <properties>
          <property name="ObjectID">3335</property>
          <property name="ObjectURN">urn:oma:lwm2m:ext:3335</property>
          <property name="MultipleInstances">Multiple</property>
          <property name="Mandatory">Optional</property>
       </properties>
-      <channels>
-         <channel id="Colour" typeId="5706"/>
-         <channel id="Units" typeId="5701"/>
-         <channel id="ApplicationType" typeId="5750"/>
-      </channels>
    </thing-type>
 </thing:thing-descriptions>

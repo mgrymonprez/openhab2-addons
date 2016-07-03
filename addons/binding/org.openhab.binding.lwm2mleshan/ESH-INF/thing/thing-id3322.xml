@@ -5,19 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Load</label>
-      <description><![CDATA[This IPSO object should be used with a load sensor (as in a scale) to report the applied weight or force. It also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor. An example measurement unit is kilograms (ucum: Kg).      
-        ]]></description>
+   <thing-type id="3322">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3322</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3322</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Load</label>
+      <description><![CDATA[This IPSO object should be used with a load sensor (as in a scale) to report the applied weight or force. It also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor. An example measurement unit is kilograms (ucum: Kg).              ]]></description>
       <channels>
          <channel id="SensorValue" typeId="5700"/>
          <channel id="SensorUnits" typeId="5701"/>
@@ -29,5 +22,11 @@
          <channel id="CurrentCalibration" typeId="5821"/>
          <channel id="ApplicationType" typeId="5750"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3322</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3322</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

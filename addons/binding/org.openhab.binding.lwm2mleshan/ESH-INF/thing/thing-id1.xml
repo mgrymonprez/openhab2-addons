@@ -5,18 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>LWM2M Server</label>
-      <description><![CDATA[This LWM2M Objects provides the data related to a LWM2M Server. A Bootstrap Server has no such an Object Instance associated to it.]]></description>
+   <thing-type id="1">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">1</property>
-         <property name="ObjectURN">TBD</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Mandatory</property>
-      </properties>
+      <label>LWM2M Server</label>
+      <description><![CDATA[This LWM2M Objects provides the data related to a LWM2M Server. A Bootstrap Server has no such an Object Instance associated to it.]]></description>
       <channels>
          <channel id="ShortServerID" typeId="0"/>
          <channel id="Lifetime" typeId="1"/>
@@ -28,5 +22,11 @@
          <channel id="Binding" typeId="7"/>
          <channel id="RegistrationUpdateTrigger" typeId="8"/>
       </channels>
+      <properties>
+         <property name="ObjectID">1</property>
+         <property name="ObjectURN">TBD</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Mandatory</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

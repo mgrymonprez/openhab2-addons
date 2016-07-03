@@ -6,10 +6,12 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="22">
+      <item-type>Contact</item-type>
       <label>Battery Connection Status</label>
       <description><![CDATA[Whether the battery is connected or not. 0: unconnected 1: connected]]></description>
+      <category>
+					Sensor
+				 </category>
       <state readOnly="true"/>
-      <item-type>Contact</item-type>
-      <category>Sensor</category>
    </channel-type>
 </thing:thing-descriptions>

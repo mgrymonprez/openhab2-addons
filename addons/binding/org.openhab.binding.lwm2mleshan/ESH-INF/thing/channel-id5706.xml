@@ -6,8 +6,8 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5706">
+      <item-type>Color</item-type>
       <label>Colour</label>
       <description><![CDATA[A string representing a value in some colour space.]]></description>
-      <item-type>Color</item-type>
    </channel-type>
 </thing:thing-descriptions>

@@ -6,9 +6,11 @@
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5551" advanced="true">
+      <item-type>Switch</item-type>
       <label>Digital Output Polarity</label>
       <description><![CDATA[The polarity of a digital ouput as a Boolean (0 = Normal, 1= Reversed).]]></description>
-      <item-type>Switch</item-type>
-      <category>Switch</category>
+      <category>
+					Switch
+				 </category>
    </channel-type>
 </thing:thing-descriptions>

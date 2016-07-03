@@ -5,18 +5,12 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>Power Measurement</label>
-      <description><![CDATA[This IPSO object should be used over a power measurement sensor to report a remote power measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range for both active and reactive power. Il also provides resources for cumulative energy, calibration, and the power factor.]]></description>
+   <thing-type id="3305">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">3305</property>
-         <property name="ObjectURN">urn:oma:lwm2m:ext:3305</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>Power Measurement</label>
+      <description><![CDATA[This IPSO object should be used over a power measurement sensor to report a remote power measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range for both active and reactive power. Il also provides resources for cumulative energy, calibration, and the power factor.]]></description>
       <channels>
          <channel id="Instantaneousactivepower" typeId="5800"/>
          <channel id="MinMeasuredactivepower" typeId="5801"/>
@@ -37,5 +31,11 @@
          <channel id="ResetCumulativeenergy" typeId="5822"/>
          <channel id="ResetMinandMaxMeasuredValues" typeId="5605"/>
       </channels>
+      <properties>
+         <property name="ObjectID">3305</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3305</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>

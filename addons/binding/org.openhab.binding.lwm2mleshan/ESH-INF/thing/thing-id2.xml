@@ -5,26 +5,23 @@
                           xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="network"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type>
-      <label>LWM2M Access Control</label>
-      <description><![CDATA[Access Control Object is used to check whether the LWM2M Server has access right for performing a operation.==E.3.1	Object Instance Configurations==
-If a new LWM2M Server Account is added when LWM2M Client has only one LWM2M Server Account, Client MUST ensure that Access Control Object Instances for every Object Instance except Security Object Instance exist. The LWM2M Client MUST create the missing Access Control Object Instances as follows:
-−	Access Control Owner MUST be the previously existing LWM2M Server
-−	Previously existing LWM2M Server MUST have full access right.]]></description>
+   <thing-type id="2">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
-      <properties>
-         <property name="ObjectID">2</property>
-         <property name="ObjectURN">TBD</property>
-         <property name="MultipleInstances">Multiple</property>
-         <property name="Mandatory">Optional</property>
-      </properties>
+      <label>LWM2M Access Control</label>
+      <description><![CDATA[Access Control Object is used to check whether the LWM2M Server has access right for performing a operation.==E.3.1	Object Instance Configurations==If a new LWM2M Server Account is added when LWM2M Client has only one LWM2M Server Account, Client MUST ensure that Access Control Object Instances for every Object Instance except Security Object Instance exist. The LWM2M Client MUST create the missing Access Control Object Instances as follows:−	Access Control Owner MUST be the previously existing LWM2M Server−	Previously existing LWM2M Server MUST have full access right.]]></description>
       <channels>
          <channel id="ObjectID" typeId="0"/>
          <channel id="ObjectInstanceID" typeId="1"/>
          <channel id="ACL" typeId="2"/>
          <channel id="AccessControlOwner" typeId="3"/>
       </channels>
+      <properties>
+         <property name="ObjectID">2</property>
+         <property name="ObjectURN">TBD</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
    </thing-type>
 </thing:thing-descriptions>
