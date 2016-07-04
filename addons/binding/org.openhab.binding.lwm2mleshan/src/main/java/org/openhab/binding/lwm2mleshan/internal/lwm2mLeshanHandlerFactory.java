@@ -74,6 +74,10 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
         return in == null ? defaultV : in;
     }
 
+    private static boolean getOrDefault(Boolean in, boolean defaultV) {
+        return in == null ? defaultV : in;
+    }
+
     public void createAndStartServer(ComponentContext componentContext) throws Exception {
         Dictionary<String, Object> properties = componentContext.getProperties();
 
@@ -81,7 +85,7 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
         int localPort = getOrDefault((Integer) properties.get("lwm2m_port"), LeshanServerBuilder.PORT);
         int secureLocalPort = getOrDefault((Integer) properties.get("lwm2m_port_secure"),
                 LeshanServerBuilder.PORT_DTLS);
-        boolean useECC = (Boolean) properties.get("lwm2m_secure_use_ecc");
+        boolean useECC = getOrDefault((Boolean) properties.get("lwm2m_secure_use_ecc"), false);
         String temp;
         temp = (String) properties.get("lwm2m_secure_public_key");
         byte[] privateKeyPart = getOrDefault(temp, "1dae121ba406802ef07c193c1ee4df91115aabd79c1ed7f4c0ef7ef6a5449400");
