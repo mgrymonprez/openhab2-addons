@@ -20,7 +20,7 @@
   
   <xsl:template match="Object">
 	<xsl:result-document method="xml" href="thing-id{ObjectID}.xml">
-    <thing:thing-descriptions bindingId="network"
+    <thing:thing-descriptions bindingId="lwm2mleshan"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
         xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
@@ -78,7 +78,7 @@
 	<xsl:variable name="itemid" select="self::node()/@ID" />
 	<xsl:result-document method="xml" href="channel-id{$itemid}.xml">
 	
-	<thing:thing-descriptions bindingId="network"
+	<thing:thing-descriptions bindingId="lwm2mleshan"
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
 		xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">

@@ -13,11 +13,13 @@
             <label>Lwm2m Server Port</label>
             <description>Usually you don't want to change the IANA assigned UDP port for CoAP (so for LWM2M)</description>
             <default>5683</default>
+            <advanced>true</advanced>
         </parameter>
         <parameter name="lwm2m_port_secure" type="integer">
             <label>Lwm2m Server Port (secure)</label>
             <description>Usually you don't want to change the IANA assigned secure UDP port with DTLS for CoAP (so for LWM2M)</description>
             <default>5683</default>
+            <advanced>true</advanced>
         </parameter>
         <parameter name="lwm2m_secure_use_ecc" type="boolean">
             <label>Use elliptic curves for DTLS</label>
@@ -33,11 +35,13 @@
             <label>Elliptic curve, x coordinate</label>
             <description>In Hexadecimal. Only used if elliptic curves are used.</description>
             <default>d2ffaa73957d76984633fc1cc54d0b763ca0559a9dff9706e9f4557dacc3f52a</default>
+            <advanced>true</advanced>
         </parameter>
         <parameter name="lwm2m_secure_point_y" type="text">
             <label>Elliptic curve, y coordinate</label>
             <description>In Hexadecimal. Only used if elliptic curves are used.</description>
             <default>1dae121ba406802ef07c193c1ee4df91115aabd79c1ed7f4c0ef7ef6a5449400</default>
+            <advanced>true</advanced>
         </parameter>
     </config-description>
     
