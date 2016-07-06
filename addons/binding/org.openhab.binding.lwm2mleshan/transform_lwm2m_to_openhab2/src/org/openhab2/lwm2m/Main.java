@@ -3,10 +3,12 @@ package org.openhab2.lwm2m;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -38,6 +40,12 @@ import net.sf.saxon.s9api.XsltExecutable;
 import net.sf.saxon.s9api.XsltTransformer;
 
 public class Main {
+    static FilenameFilter xmlfilenameFilter = new FilenameFilter() {
+        @Override
+        public boolean accept(File dir, String name) {
+            return name.endsWith(".xml");
+        }
+    };
 
     /**
      * Check readme.md file in the root directory. This application downloads OMA LWM2M Registry object files,
@@ -47,19 +55,23 @@ public class Main {
      * @param args
      * @throws MalformedURLException
      * @throws InterruptedException
+     * @throws SaxonApiException
+     * @throws SAXException
      */
-    public static void main(String[] args) throws MalformedURLException, InterruptedException {
+    public static void main(String[] args)
+            throws MalformedURLException, InterruptedException, SaxonApiException, SAXException {
         System.out.println("Checking directories, schema files and load transformation file");
 
         File basePath = Paths.get("res").toAbsolutePath().toFile();
         File openhabSchemaFile = new File(basePath, "schema/thing-description-1.0.0.xsd");
         File lwm2mSchemaFile = new File(basePath, "schema/LWM2M.xsd");
         File transformFile = new File(basePath, "transform/transform.xsl");
-        File lwm2mRegistryFiles = new File(basePath, "lwm2m_object_registry");
+        File transformPostFile = new File(basePath, "transform/post_transform.xsl");
+        File inputPath = new File(basePath, "lwm2m_object_registry");
         File destPath = Paths.get("out").toAbsolutePath().toFile();
 
-        if (!basePath.exists() || !lwm2mRegistryFiles.exists() || !transformFile.exists() || !openhabSchemaFile.exists()
-                || !lwm2mSchemaFile.exists()) {
+        if (!basePath.exists() || !inputPath.exists() || !transformFile.exists() || !transformPostFile.exists()
+                || !openhabSchemaFile.exists() || !lwm2mSchemaFile.exists()) {
             System.err.println(
                     "Res directory or subdirectories does not exist in your working directory: " + basePath.toString());
             System.exit(-1);
@@ -69,48 +81,85 @@ public class Main {
             destPath.mkdirs();
         }
 
-        FilenameFilter filenameFilter = new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String name) {
-                return name.endsWith(".xml");
-            }
-        };
-
         Processor processor = new Processor(false);
-        XsltExecutable template = null;
-        try {
-            template = processor.newXsltCompiler().compile(new StreamSource(transformFile));
-            if (template == null) {
-                System.err.println("Failed to load transform.xsl");
-                System.exit(-1);
-                return;
-            }
-        } catch (SaxonApiException e) {
-            e.printStackTrace();
+        XsltExecutable templateTransform = processor.newXsltCompiler().compile(new StreamSource(transformFile));
+        Processor processorPost = new Processor(false);
+        XsltExecutable templateTransformPost = processorPost.newXsltCompiler()
+                .compile(new StreamSource(transformPostFile));
+
+        if (templateTransform == null || templateTransformPost == null) {
+            System.err.println("Failed to load transform.xsl");
             System.exit(-1);
             return;
         }
 
-        final XsltExecutable templateFinal = template;
-
         // Setup input validator
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema lwm2mSchema;
-        try {
-            lwm2mSchema = schemaFactory.newSchema(lwm2mSchemaFile);
-        } catch (SAXException e) {
-            e.printStackTrace();
-            return;
+        Schema lwm2mSchema = schemaFactory.newSchema(lwm2mSchemaFile);
+
+        System.out.println("Download OMA LWM2M Registry data");
+        updateFiles(inputPath);
+
+        transformInputfiles(inputPath.listFiles(xmlfilenameFilter), destPath.toURI().toURL().toString(), lwm2mSchema,
+                processor, templateTransform);
+
+        transformOutputfiles(destPath, processorPost, templateTransformPost);
+
+        validateOutput(openhabSchemaFile, destPath);
+        System.out.println("Done");
+    }
+
+    private static void transformOutputfiles(File destPath, Processor processor, XsltExecutable template)
+            throws MalformedURLException, InterruptedException {
+        ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
+        File[] files = destPath.listFiles(xmlfilenameFilter);
+        List<Callable<Object>> todo = new ArrayList<Callable<Object>>(files.length);
+
+        for (File xmlFile : files) {
+            todo.add(Executors.callable(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("Post Transform " + xmlFile.getName().toString());
+
+                    try {
+                        StringBuilder xmlFileContent = new StringBuilder();
+                        String inputLine;
+                        BufferedReader in = new BufferedReader(new FileReader(xmlFile));
+                        while ((inputLine = in.readLine()) != null) {
+                            xmlFileContent.append(inputLine);
+                        }
+                        in.close();
+                        xmlFile.delete();
+
+                        // Setup transformer
+                        Serializer serializer = processor.newSerializer();
+                        serializer.setOutputFile(xmlFile);
+
+                        XsltTransformer transformer = template.load();
+
+                        transformer.setDestination(serializer);
+                        transformer.setInitialContextNode(processor.newDocumentBuilder()
+                                .build(new StreamSource(new StringReader(xmlFileContent.toString()))));
+                        transformer.transform();
+                    } catch (SaxonApiException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }));
         }
 
-        try {
-            System.out.println("Download OMA LWM2M Registry data");
-            updateFiles(lwm2mRegistryFiles);
-        } catch (IOException | InterruptedException e1) {
-            System.err.println("Download of xml files failed " + e1.getMessage());
-        }
+        exec.invokeAll(todo);
+        exec.shutdown();
+    }
 
-        File[] files = lwm2mRegistryFiles.listFiles(filenameFilter);
+    private static void transformInputfiles(File[] files, String destPath, Schema lwm2mSchema, Processor processor,
+            XsltExecutable template) throws InterruptedException {
+
         ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Callable<Object>> todo = new ArrayList<Callable<Object>>(files.length);
 
@@ -134,20 +183,19 @@ public class Main {
                         return;
                     }
 
-                    XsltTransformer transformer = templateFinal.load();
-
                     try {
                         // Setup transformer
                         Serializer serializer = processor.newSerializer();
                         serializer.setOutputWriter(new StringWriter());
+
+                        XsltTransformer transformer = template.load();
+
                         transformer.setDestination(serializer);
-                        transformer.setBaseOutputURI(destPath.toURI().toURL().toString());
+                        transformer.setBaseOutputURI(destPath);
                         transformer.setInitialContextNode(processor.newDocumentBuilder().build(streamSource));
                         transformer.setSource(streamSource);
                         transformer.transform();
                     } catch (SaxonApiException e) {
-                        e.printStackTrace();
-                    } catch (MalformedURLException e) {
                         e.printStackTrace();
                     }
                 }
@@ -156,9 +204,6 @@ public class Main {
 
         exec.invokeAll(todo);
         exec.shutdown();
-
-        validateOutput(openhabSchemaFile, destPath, filenameFilter);
-        System.out.println("Done");
     }
 
     /**
@@ -166,12 +211,16 @@ public class Main {
      * given directory.
      *
      * @param lwm2mRegistryFiles The dest dir to store files.
-     * @throws IOException
-     * @throws InterruptedException
      */
-    private static void updateFiles(File lwm2mRegistryFiles) throws IOException, InterruptedException {
-        String data = downloadFile(
-                "http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry");
+    private static boolean updateFiles(File lwm2mRegistryFiles) {
+        String data;
+        try {
+            data = downloadFile(
+                    "http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry");
+        } catch (IOException e1) {
+            e1.printStackTrace();
+            return false;
+        }
 
         Pattern linkPattern = Pattern.compile("<a[^>]+href=[\"']?([^\"'>]*\\.xml)[\"']?[^>]*>(.+?)</a>",
                 Pattern.CASE_INSENSITIVE | Pattern.DOTALL);
@@ -216,8 +265,14 @@ public class Main {
                 }
             }));
         }
-        exec.invokeAll(todo);
+        try {
+            exec.invokeAll(todo);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            return false;
+        }
         exec.shutdown();
+        return true;
     }
 
     private static String downloadFile(String urlName) throws IOException {
@@ -248,8 +303,7 @@ public class Main {
      * @param filenameFilter
      * @throws InterruptedException
      */
-    private static void validateOutput(File openhabSchemaFile, File destPath, FilenameFilter filenameFilter)
-            throws InterruptedException {
+    private static void validateOutput(File openhabSchemaFile, File destPath) throws InterruptedException {
         // Validate
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema schema;
@@ -260,7 +314,7 @@ public class Main {
             return;
         }
 
-        File[] files = destPath.listFiles(filenameFilter);
+        File[] files = destPath.listFiles(xmlfilenameFilter);
 
         ExecutorService exec = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
         List<Callable<Object>> todo = new ArrayList<Callable<Object>>(files.length);

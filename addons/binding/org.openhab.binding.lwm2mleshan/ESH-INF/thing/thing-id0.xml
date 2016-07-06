@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                           xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
-                          xmlns:thing-description="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
-                          xmlns:config-description="http://eclipse.org/smarthome/schemas/config-description/v1.0.0"
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
-   <thing-type id="0">
+   <thing-type id="0" listed="false">
       <supported-bridge-type-refs>
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
@@ -32,4 +30,95 @@
          <property name="Mandatory">Mandatory</property>
       </properties>
    </thing-type>
+   <channel-type id="0">
+      <item-type>String</item-type>
+      <label>LWM2M  Server URI</label>
+      <description><![CDATA[Uniquely identifies the LWM2M Server or LWM2M Bootstrap Server, and is in the form:"coaps://host:port", where host is an IP address or FQDN, and port is the UDP port of the Server.]]></description>
+   </channel-type>
+   <channel-type id="1">
+      <item-type>Switch</item-type>
+      <label>Bootstrap Server</label>
+      <description><![CDATA[Determines if the current instance concerns a LWM2M Bootstrap Server (true) or a standard LWM2M Server (false)]]></description>
+      <category>Switch</category>
+   </channel-type>
+   <channel-type id="2">
+      <item-type>Number</item-type>
+      <label>Security Mode</label>
+      <description><![CDATA[Determines which UDP payload security mode is used0: Pre-Shared Key mode1: Raw Public Key mode2: Certificate mode3: NoSec mode]]></description>
+      <tags>
+         <tag>Integer</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="3">
+      <item-type>					String				</item-type>
+      <label>Public Key or Identity</label>
+      <description><![CDATA[Stores the LWM2M Client’s Certificate (Certificate mode), public key (RPK mode) or PSK Identity (PSK mode). The format is defined in Section E.1.1.]]></description>
+      <tags>
+         <tag>Opaque</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="4">
+      <item-type>					String				</item-type>
+      <label>Server Public Key or Identity</label>
+      <description><![CDATA[Stores the LWM2M Server’s or LWM2M Bootstrap Server’s Certificate (Certificate mode), public key (RPK mode) or PSK Identity (PSK mode). The format is defined in Section E.1.1.]]></description>
+      <tags>
+         <tag>Opaque</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="5">
+      <item-type>					String				</item-type>
+      <label>Secret Key</label>
+      <description><![CDATA[Stores the secret key or private key of the security mode. The format of the keying material is defined by the security mode in  Section E.1.1. This Resource MUST only be changed by a bootstrap server and MUST NOT be readable by any server.]]></description>
+      <tags>
+         <tag>Opaque</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="6">
+      <item-type>Number</item-type>
+      <label>SMS Security Mode</label>
+      <description><![CDATA[Determines which SMS payload security mode is used (see section 7.2)0: Reserved for future use1: Secure Packet Structure mode device terminated2: Secure Packet Structure mode smartcard terminated3: NoSec mode255: Proprietary modes]]></description>
+      <tags>
+         <tag>Integer</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="7">
+      <item-type>					String				</item-type>
+      <label>SMS Binding Key Parameters</label>
+      <description><![CDATA[Stores the KIc, KID, SPI and TAR. The format is defined in Section D.1.2.]]></description>
+      <tags>
+         <tag>Opaque</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="8">
+      <item-type>					String				</item-type>
+      <label>SMS Binding Secret Keys</label>
+      <description><![CDATA[Stores the values of the keys for the SMS binding. This resource MUST only be changed by a bootstrap server and MUST NOT be readable by any server.]]></description>
+      <tags>
+         <tag>Opaque</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="9">
+      <item-type>Number</item-type>
+      <label>LWM2M Server SMS Number</label>
+      <description><![CDATA[MSISDN used by the LWM2M Client  to send messages to the LWM2M Server via the SMS binding. The LWM2M Client SHALL silently ignore any SMS not originated from unknown MSISDN]]></description>
+      <tags>
+         <tag>Integer</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="10" advanced="true">
+      <item-type>Number</item-type>
+      <label>Short Server ID</label>
+      <description><![CDATA[This identifier uniquely identifies each LWM2M Server configured for the LWM2M Client.This Resource MUST be set when the Bootstrap Server Resource has false value.Default Short Server ID (i.e. 0) MUST NOT be used for identifying the LWM2M Server.]]></description>
+      <tags>
+         <tag>Integer</tag>
+      </tags>
+   </channel-type>
+   <channel-type id="11">
+      <item-type>Number</item-type>
+      <label>Client Hold Off Time</label>
+      <description><![CDATA[Relevant information for a Bootstrap Server only.The number of seconds to wait before initiating a Client Initiated Bootstrap once the LWM2M Client has determined it should initiate this bootstrap mode]]></description>
+      <tags>
+         <tag>Integer</tag>
+      </tags>
+   </channel-type>
 </thing:thing-descriptions>

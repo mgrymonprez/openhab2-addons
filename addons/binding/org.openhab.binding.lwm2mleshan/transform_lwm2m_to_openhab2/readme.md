@@ -14,4 +14,4 @@ Validation after transformation is also performed.
 
 ## Output files
 Output files are written to the directory called "out" in the working dir.
-Things and Channels are written out seperatly with a file name pattern "thing-id[id].xml" and "channel-id[id].xml". The id is unique for things and channels respectivly and defined by the OMA LWM2M Object Registry. Output files are validated against the openhab2 schema file. You can copy the output files directly to the lwm2m_openhab2_addon/ESH-INF folder.
+Things and Channels are written out separately with a file name pattern "thing-id[id].xml" and "channel-id[id].xml". The id is unique for things and channels respectively and defined by the OMA LWM2M Object Registry. Output files are validated against the openhab2 schema file. You can copy the output files directly to the lwm2m_openhab2_addon/ESH-INF folder.
