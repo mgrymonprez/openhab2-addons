@@ -7,16 +7,14 @@
  */
 package org.openhab.binding.lwm2mleshan.internal;
 
-import java.util.Collections;
-import java.util.Set;
-
 import org.eclipse.leshan.server.client.Client;
+import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
-import org.openhab.binding.lwm2mleshan.lwm2mLeshanBindingConstants;
-import org.openhab.binding.lwm2mleshan.handler.lwm2mLeshanHandler;
+import org.openhab.binding.lwm2mleshan.handler.Lwm2mDeviceBridgeHandler;
+import org.openhab.binding.lwm2mleshan.handler.Lwm2mObjectHandler;
 import org.osgi.service.component.ComponentContext;
 import org.osgi.service.component.ComponentException;
 
@@ -27,22 +25,26 @@ import org.osgi.service.component.ComponentException;
  * @author David Graeff - Initial contribution
  */
 public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
-    leshanOpenhab leshan = new leshanOpenhab();
-
-    private final static Set<ThingTypeUID> SUPPORTED_THING_TYPES_UIDS = Collections
-            .singleton(lwm2mLeshanBindingConstants.THING_TYPE_SAMPLE);
+    LeshanOpenhab leshan = new LeshanOpenhab();
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
-        return SUPPORTED_THING_TYPES_UIDS.contains(thingTypeUID);
+        return thingTypeUID.getId().contains("thing-id") && thingTypeUID.getId().equals("lwm2mBridgeThing");
     }
 
     @Override
     protected ThingHandler createHandler(Thing thing) {
-        // ThingTypeUID thingTypeUID = thing.getThingTypeUID();
         Client client = leshan.getClient(Lwm2mUID.getEndpoint(thing));
-        return new lwm2mLeshanHandler(thing, leshan, client, Lwm2mUID.getObjectID(thing),
-                Lwm2mUID.getObjectIDInstance(thing));
+        if (client == null) {
+            throw new IllegalArgumentException();
+        }
+
+        if (thing.getThingTypeUID().getId().equals("lwm2mBridgeThing")) {
+            return new Lwm2mDeviceBridgeHandler((Bridge) thing, leshan, client);
+        } else {
+            return new Lwm2mObjectHandler(thing, leshan, client, Lwm2mUID.getObjectID(thing),
+                    Lwm2mUID.getObjectIDInstance(thing));
+        }
     }
 
     @Override
@@ -51,6 +53,7 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
 
         try {
             leshan.createAndStartServer(componentContext.getProperties());
+            leshan.startDiscovery(bundleContext);
         } catch (Exception e) {
             throw new ComponentException(e);
         }
@@ -58,6 +61,7 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
 
     @Override
     protected void deactivate(ComponentContext componentContext) {
+        leshan.stopDiscovery();
         leshan.stopServer();
         super.deactivate(componentContext);
     }

@@ -71,4 +71,8 @@ public class Lwm2mUID extends ChannelUID {
         return resourceID;
     }
 
+    public static String getChannelID(int id) {
+        return "channel-id" + String.valueOf(id);
+    }
+
 }
