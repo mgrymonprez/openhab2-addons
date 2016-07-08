@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          bindingId="lwm2mleshan"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="3332">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>Direction</label>
+      <description><![CDATA[This IPSO object is used to report the direction indicated by a compass, wind vane, or other directional indicator. The units of measure is plane angle degrees (ucum:deg).              ]]></description>
+      <!--Optional channel Min Measured Value (5601) added dynamically-->
+      <!--Optional channel Max Measured Value (5602) added dynamically-->
+      <!--Optional channel Reset Min and Max Measured Values (5605) added dynamically-->
+      <!--Optional channel Application Type (5750) added dynamically-->
+      <channels>
+         <channel id="5705" typeId="5705"/>
+         <!--Channel Compass Direction (5705)-->
+      </channels>
+      <properties>
+         <property name="ObjectID">3332</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3332</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>

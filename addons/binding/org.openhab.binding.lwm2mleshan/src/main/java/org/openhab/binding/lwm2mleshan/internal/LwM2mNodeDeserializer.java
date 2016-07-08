@@ -136,7 +136,6 @@ public class LwM2mNodeDeserializer implements JsonDeserializer<LwM2mNode> {
             case TIME:
             case OPAQUE:
             default:
-                // TODO we need to better handle this.
                 return val.getAsString();
         }
     }

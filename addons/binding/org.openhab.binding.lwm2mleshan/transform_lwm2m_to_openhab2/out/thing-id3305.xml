@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          bindingId="lwm2mleshan"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="3305">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>Power Measurement</label>
+      <description><![CDATA[This IPSO object should be used over a power measurement sensor to report a remote power measurement.  It also provides resources for minimum/maximum measured values and the minimum/maximum range for both active and reactive power. Il also provides resources for cumulative energy, calibration, and the power factor.]]></description>
+      <!--Optional channel Min Measured active power (5801) added dynamically-->
+      <!--Optional channel Max Measured  active power (5802) added dynamically-->
+      <!--Optional channel Min  Range  active power (5803) added dynamically-->
+      <!--Optional channel Max Range active power (5804) added dynamically-->
+      <!--Optional channel Cumulative active power (5805) added dynamically-->
+      <!--Optional channel Active Power Calibration (5806) added dynamically-->
+      <!--Optional channel Instantaneous reactive power (5810) added dynamically-->
+      <!--Optional channel Min Measured reactive power (5811) added dynamically-->
+      <!--Optional channel Max Measured  reactive power (5812) added dynamically-->
+      <!--Optional channel Min  Range  reactive power (5813) added dynamically-->
+      <!--Optional channel Max Range reactive power (5814) added dynamically-->
+      <!--Optional channel Cumulative reactive power (5815) added dynamically-->
+      <!--Optional channel Reactive Power Calibration (5816) added dynamically-->
+      <!--Optional channel Power factor (5820) added dynamically-->
+      <!--Optional channel Current Calibration (5821) added dynamically-->
+      <!--Optional channel Reset Cumulative energy (5822) added dynamically-->
+      <!--Optional channel Reset Min and Max Measured Values (5605) added dynamically-->
+      <channels>
+         <channel id="5800" typeId="5800"/>
+         <!--Channel Instantaneous active power (5800)-->
+      </channels>
+      <properties>
+         <property name="ObjectID">3305</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3305</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>

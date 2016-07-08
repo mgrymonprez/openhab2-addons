@@ -98,7 +98,7 @@ public class Main {
         Schema lwm2mSchema = schemaFactory.newSchema(lwm2mSchemaFile);
 
         System.out.println("Download OMA LWM2M Registry data");
-        updateFiles(inputPath);
+        // updateFiles(inputPath);
 
         transformInputfiles(inputPath.listFiles(xmlfilenameFilter), destPath.toURI().toURL().toString(), lwm2mSchema,
                 processor, templateTransform);
@@ -329,7 +329,7 @@ public class Main {
                         Validator validator = schema.newValidator();
                         validator.validate(xmlSource);
                     } catch (SAXException e) {
-                        System.out.println("\tNOT valid");
+                        System.out.println(xmlFile.getName().toString() + " NOT valid");
                         System.out.println("Reason: " + e.getLocalizedMessage());
                     } catch (IOException e) {
                         e.printStackTrace();

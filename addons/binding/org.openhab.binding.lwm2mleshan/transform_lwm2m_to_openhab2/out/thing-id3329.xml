@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          bindingId="lwm2mleshan"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="3329">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>Power Factor</label>
+      <description><![CDATA[This IPSO object should be used to report a measurement or calculation of the power factor of a reactive electrical load. Power Factor is normally the ratio of non-reactive power to total power. This object also provides resources for minimum and maximum measured values, as well as the minimum and maximum range that can be measured by the sensor.              ]]></description>
+      <!--Optional channel Sensor Units (5701) added dynamically-->
+      <!--Optional channel Min Measured Value (5601) added dynamically-->
+      <!--Optional channel Max Measured Value (5602) added dynamically-->
+      <!--Optional channel Min Range Value (5603) added dynamically-->
+      <!--Optional channel Max Range Value (5604) added dynamically-->
+      <!--Optional channel Reset Min and Max Measured Values (5605) added dynamically-->
+      <!--Optional channel Current Calibration (5821) added dynamically-->
+      <!--Optional channel Application Type (5750) added dynamically-->
+      <channels>
+         <channel id="5700" typeId="5700"/>
+         <!--Channel Sensor Value (5700)-->
+      </channels>
+      <properties>
+         <property name="ObjectID">3329</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3329</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>

@@ -10,19 +10,16 @@ package org.openhab.binding.lwm2mleshan;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 
 /**
- * The {@link lwm2mLeshanBinding} class defines common constants, which are 
+ * The {@link lwm2mLeshanBinding} class defines common constants, which are
  * used across the whole binding.
- * 
+ *
  * @author David Graeff - Initial contribution
  */
 public class lwm2mLeshanBindingConstants {
 
     public static final String BINDING_ID = "lwm2mleshan";
-    
+    public static final String BRIDGE_ID = "lwm2mBridgeThing";
+
     // List of all Thing Type UIDs
-    public final static ThingTypeUID THING_TYPE_SAMPLE = new ThingTypeUID(BINDING_ID, "sample");
-
-    // List of all Channel ids
-    public final static String CHANNEL_1 = "channel1";
-
+    public final static ThingTypeUID BRIDGE_TYPE = new ThingTypeUID(BINDING_ID, BRIDGE_ID);
 }

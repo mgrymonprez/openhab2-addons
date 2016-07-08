@@ -7,15 +7,24 @@
  */
 package org.openhab.binding.lwm2mleshan.handler;
 
+import java.util.Map;
+import java.util.Map.Entry;
+
 import org.eclipse.leshan.server.client.Client;
+import org.eclipse.smarthome.config.core.Configuration;
 import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingStatus;
+import org.eclipse.smarthome.core.thing.ThingTypeUID;
+import org.eclipse.smarthome.core.thing.ThingUID;
 import org.eclipse.smarthome.core.thing.binding.BaseBridgeHandler;
 import org.eclipse.smarthome.core.thing.binding.ThingFactory;
+import org.eclipse.smarthome.core.thing.type.ThingType;
+import org.eclipse.smarthome.core.thing.type.TypeResolver;
 import org.eclipse.smarthome.core.types.Command;
 import org.openhab.binding.lwm2mleshan.internal.LeshanOpenhab;
+import org.openhab.binding.lwm2mleshan.internal.Lwm2mUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +38,7 @@ import org.slf4j.LoggerFactory;
  * @author David Graeff - Initial contribution
  */
 public class Lwm2mDeviceBridgeHandler extends BaseBridgeHandler {
+    @SuppressWarnings("unused")
     private Logger logger = LoggerFactory.getLogger(Lwm2mDeviceBridgeHandler.class);
     private final LeshanOpenhab leshan;
     public final Client client;
@@ -42,6 +52,20 @@ public class Lwm2mDeviceBridgeHandler extends BaseBridgeHandler {
     // Avoid dispose+initialize because of a configuration change on the bridge
     @Override
     public void thingUpdated(Thing thing) {
+        this.thing = thing;
+    }
+
+    // Avoid dispose+initialize because of a configuration change on the bridge
+    @Override
+    public void handleConfigurationUpdate(Map<String, Object> configurationParameters) {
+        validateConfigurationParameters(configurationParameters);
+
+        Configuration configuration = editConfiguration();
+        for (Entry<String, Object> configurationParmeter : configurationParameters.entrySet()) {
+            configuration.put(configurationParmeter.getKey(), configurationParmeter.getValue());
+        }
+
+        updateConfiguration(configuration);
     }
 
     @Override
@@ -49,13 +73,21 @@ public class Lwm2mDeviceBridgeHandler extends BaseBridgeHandler {
         updateStatus(ThingStatus.INITIALIZING);
         // TODO Get data
         // TODO add things
-        thingRegistry.add(ThingFactory.createThing(thingType, thingUID, configuration));
+
+        int thingID = 3200;
+        ThingTypeUID thingTypeUID = Lwm2mUID.getThingTypeUID(thingID);
+        ThingUID thingUID = new ThingUID(thingTypeUID, "0");
+        Thing newThing = thingRegistry.get(thingUID);
+        if (newThing == null) {
+            ThingType thingType = TypeResolver.resolve(thingTypeUID);
+            newThing = ThingFactory.createThing(thingType, thingUID, new Configuration());
+            thingRegistry.add(newThing);
+        }
         updateStatus(ThingStatus.ONLINE);
     }
 
     @Override
     public void dispose() {
-        leshan.stopObserve(client);
         super.dispose();
     }
 

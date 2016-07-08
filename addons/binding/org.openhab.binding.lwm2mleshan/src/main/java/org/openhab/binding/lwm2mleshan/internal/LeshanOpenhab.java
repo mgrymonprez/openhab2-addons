@@ -1,6 +1,9 @@
 package org.openhab.binding.lwm2mleshan.internal;
 
 import java.math.BigInteger;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 import java.security.AlgorithmParameters;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -19,6 +22,7 @@ import java.util.concurrent.TimeoutException;
 import org.eclipse.leshan.core.model.ObjectModel;
 import org.eclipse.leshan.core.model.ResourceModel;
 import org.eclipse.leshan.core.node.LwM2mNode;
+import org.eclipse.leshan.core.node.LwM2mObject;
 import org.eclipse.leshan.core.node.LwM2mObjectInstance;
 import org.eclipse.leshan.core.observation.Observation;
 import org.eclipse.leshan.core.request.DownlinkRequest;
@@ -261,25 +265,34 @@ public class LeshanOpenhab implements ObservationRegistryListener {
     }
 
     public Client getClient(String endpoint) {
+        if ("demo".equals(endpoint)) {
+            try {
+                return new Client.Builder("redIDDemo", "demo", InetAddress.getByName("127.0.0.1"),
+                        LeshanServerBuilder.PORT, new InetSocketAddress(12345)).build();
+            } catch (UnknownHostException ignored) {
+            }
+        }
         return lwServer.getClientRegistry().get(endpoint);
     }
 
     @Override
     public void newObservation(Observation observation) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void cancelled(Observation observation) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
     public void newValue(Observation observation, LwM2mNode value) {
         Lwm2mObjectHandler handler = observer_to_handler.get(observation);
-        handler.updateLwM2mNode(value);
+        if (!handler.updateLwM2mNode(value)) {
+            if (value instanceof LwM2mObject) {
+                // TODO create new object instance thing
+            } else {
+                logger.warn("new value not handled");
+            }
+        }
     }
 
     public LwM2mObjectInstance requestValues(Lwm2mObjectHandler handler) throws InterruptedException {

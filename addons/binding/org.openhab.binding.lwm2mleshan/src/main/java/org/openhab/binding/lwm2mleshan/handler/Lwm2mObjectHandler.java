@@ -8,6 +8,7 @@
 package org.openhab.binding.lwm2mleshan.handler;
 
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.eclipse.leshan.core.model.ObjectModel;
 import org.eclipse.leshan.core.model.ResourceModel;
@@ -16,6 +17,7 @@ import org.eclipse.leshan.core.node.LwM2mObjectInstance;
 import org.eclipse.leshan.core.node.LwM2mResource;
 import org.eclipse.leshan.core.observation.Observation;
 import org.eclipse.leshan.server.client.Client;
+import org.eclipse.smarthome.config.core.Configuration;
 import org.eclipse.smarthome.core.library.types.DateTimeType;
 import org.eclipse.smarthome.core.library.types.DecimalType;
 import org.eclipse.smarthome.core.library.types.HSBType;
@@ -29,8 +31,8 @@ import org.eclipse.smarthome.core.thing.ThingStatusDetail;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandler;
 import org.eclipse.smarthome.core.types.Command;
 import org.eclipse.smarthome.core.types.State;
-import org.openhab.binding.lwm2mleshan.internal.Lwm2mUID;
 import org.openhab.binding.lwm2mleshan.internal.LeshanOpenhab;
+import org.openhab.binding.lwm2mleshan.internal.Lwm2mUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -63,6 +65,19 @@ public class Lwm2mObjectHandler extends BaseThingHandler {
         this.objectID = objectID;
         this.objectIDinstance = objectIDinstance;
         objectModel = leshan.getObjectModel(client, objectID);
+    }
+
+    // Avoid dispose+initialize because of a configuration change on the bridge
+    @Override
+    public void handleConfigurationUpdate(Map<String, Object> configurationParameters) {
+        validateConfigurationParameters(configurationParameters);
+
+        Configuration configuration = editConfiguration();
+        for (Entry<String, Object> configurationParmeter : configurationParameters.entrySet()) {
+            configuration.put(configurationParmeter.getKey(), configurationParmeter.getValue());
+        }
+
+        updateConfiguration(configuration);
     }
 
     // Avoid dispose+initialize because of a configuration change on the thing
@@ -104,20 +119,29 @@ public class Lwm2mObjectHandler extends BaseThingHandler {
         super.dispose();
     }
 
-    public void updateLwM2mNode(LwM2mNode value) {
+    public boolean updateLwM2mNode(LwM2mNode value) {
         if (value.equals(objectNode)) {
             updateAll((LwM2mObjectInstance) value);
+            return true;
         } else if (value instanceof LwM2mResource) {
             LwM2mResource resource = (LwM2mResource) value;
             if (value.equals(objectNode.getResource(resource.getId()))) {
-                updateSingleChannel(resource);
+                if (!resource.isMultiInstances()) {
+                    updateSingleChannel(resource, -1);
+                } else {
+                    for (Integer instanceID : resource.getValues().keySet()) {
+                        updateSingleChannel(resource, instanceID);
+                    }
+                }
+                return true;
             }
         }
+        return false;
     }
 
-    private void updateSingleChannel(LwM2mResource value) {
+    private void updateSingleChannel(LwM2mResource value, int resourceInstance) {
         State newState;
-        String channelID = Lwm2mUID.getChannelID(value.getId());
+        String channelID = Lwm2mUID.getChannelID(value, resourceInstance);
         Channel channel = thing.getChannel(channelID);
 
         if (channel == null) {
@@ -208,7 +232,13 @@ public class Lwm2mObjectHandler extends BaseThingHandler {
 
         for (LwM2mResource res : resources.values()) {
             if (res.getId() != UNITS_RESOURCE) {
-                updateSingleChannel(res);
+                if (!res.isMultiInstances()) {
+                    updateSingleChannel(res, -1);
+                } else {
+                    for (Integer instanceID : res.getValues().keySet()) {
+                        updateSingleChannel(res, instanceID);
+                    }
+                }
             }
         }
 

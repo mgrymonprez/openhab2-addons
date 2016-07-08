@@ -21,6 +21,7 @@ import org.eclipse.smarthome.config.discovery.DiscoveryResult;
 import org.eclipse.smarthome.config.discovery.DiscoveryResultBuilder;
 import org.eclipse.smarthome.config.discovery.DiscoveryService;
 import org.eclipse.smarthome.core.thing.ThingUID;
+import org.openhab.binding.lwm2mleshan.lwm2mLeshanBindingConstants;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceRegistration;
 
@@ -50,26 +51,33 @@ public class BridgesFromDevicesDiscovery extends AbstractDiscoveryService implem
         for (Client client : clients) {
             registered(client);
         }
+
+        createTestBridge();
     }
 
-    @Override
-    public void registered(Client client) {
+    private void createTestBridge() {
         Map<String, Object> properties = new HashMap<>(3);
-        ThingUID uid = new ThingUID(YamahaReceiverBindingConstants.THING_TYPE_YAMAHAAV, zoneName);
+        ThingUID uid = new ThingUID(lwm2mLeshanBindingConstants.BRIDGE_TYPE, "demo");
         DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(uid).withProperties(properties)
-                .withLabel(state.name + " " + zoneName).build();
+                .withLabel("demo bridge").build();
         thingDiscovered(discoveryResult);
     }
 
     @Override
-    public void updated(ClientUpdate update, Client clientUpdated) {
-        // TODO Auto-generated method stub
+    public void registered(Client client) {
+        // TODO registered(Client client)
+        // Map<String, Object> properties = new HashMap<>(3);
+        // ThingUID uid = new ThingUID(YamahaReceiverBindingConstants.THING_TYPE_YAMAHAAV, zoneName);
+        // DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(uid).withProperties(properties)
+        // .withLabel(state.name + " " + zoneName).build();
+        // thingDiscovered(discoveryResult);
+    }
 
+    @Override
+    public void updated(ClientUpdate update, Client clientUpdated) {
     }
 
     @Override
     public void unregistered(Client client) {
-        // TODO Auto-generated method stub
-
     }
 }

@@ -3,29 +3,33 @@ package org.openhab.binding.lwm2mleshan.internal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.leshan.core.node.LwM2mResource;
+import org.eclipse.smarthome.core.thing.Bridge;
 import org.eclipse.smarthome.core.thing.ChannelUID;
 import org.eclipse.smarthome.core.thing.Thing;
+import org.eclipse.smarthome.core.thing.ThingTypeUID;
+import org.openhab.binding.lwm2mleshan.lwm2mLeshanBindingConstants;
 
 // Thing ID pattern: bindingID/thingTypeId/bridge0..n/thingID/channelID
 // For lwm2m with a pattern of /endpoint/objectid/objectinstanceid/resourceid/resourceinstanceid
 // * the endpoint is the last bridgeID,
-// * the objectid is encoded in the thingTypeId (the number after the "-"),
+// * the objectid is the thingTypeId (without the bindingId),
 // * the objectinstanceid is the thingID,
-// * the resourceid is encoded in the channelID (the number after the "-"),
-// * the resourceinstanceid is always 0. This may change in the future.
+// * the resourceid is the channelID if no channelGroupId otherwise the channelGroupId,
+// * the resourceinstanceid is default 0. If there is a channelGroupID, the the channelID is the instanceID.
 public class Lwm2mUID extends ChannelUID {
     private final String endpoint;
     private int objectID;
     private int objectInstance;
     private int resourceID;
+    private int resourceIDinstance = 0;
 
     public static String getEndpoint(Thing thing) {
-        return thing.getBridgeUID().getId();
+        return thing instanceof Bridge ? thing.getUID().getId() : thing.getBridgeUID().getId();
     }
 
     public static int getObjectID(Thing thing) {
-        String segment = thing.getThingTypeUID().getId();
-        return Integer.valueOf(segment.substring(segment.lastIndexOf("-id") + 3));
+        return Integer.valueOf(thing.getThingTypeUID().getId());
     }
 
     public static int getObjectIDInstance(Thing thing) {
@@ -33,26 +37,43 @@ public class Lwm2mUID extends ChannelUID {
     }
 
     public static int getResourceID(ChannelUID channelUid) {
-        String chanID = channelUid.getId();
-        return Integer.valueOf(chanID.substring(chanID.lastIndexOf("-id") + 3));
+        if (channelUid.isInGroup()) {
+            return Integer.valueOf(channelUid.getGroupId());
+        } else {
+            return Integer.valueOf(channelUid.getId());
+        }
+    }
+
+    public static int getResourceIDinstance(ChannelUID channelUid) {
+        if (channelUid.isInGroup()) {
+            return Integer.valueOf(channelUid.getIdWithoutGroup());
+        } else {
+            return 0;
+        }
     }
 
     public Lwm2mUID(ChannelUID channelUid) {
         super(channelUid.getAsString());
 
         String[] segments = getSegments();
-        objectID = Integer.valueOf(segments[1].substring(segments[1].lastIndexOf("-id") + 3));
+        objectID = Integer.valueOf(segments[1]);
         String thingID = segments[segments.length - 2];
         objectInstance = Integer.valueOf(thingID);
-        String chanID = segments[segments.length - 1];
-        resourceID = Integer.valueOf(chanID.substring(chanID.lastIndexOf("-id") + 3));
+
+        if (isInGroup()) {
+            resourceID = Integer.valueOf(getGroupId());
+            resourceIDinstance = Integer.valueOf(getIdWithoutGroup());
+        } else {
+            resourceID = Integer.valueOf(getId());
+            resourceIDinstance = 0;
+        }
 
         List<String> bridgeIds = new ArrayList<>();
         // skip bindingID/thingTypeId and also don't care about thingID/channelID
         for (int i = 2; i < segments.length - 2; i++) {
             bridgeIds.add(segments[i]);
         }
-        endpoint = segments[segments.length - 1];
+        endpoint = bridgeIds.get(bridgeIds.size() - 1);
     }
 
     public String getEndpoint() {
@@ -71,8 +92,19 @@ public class Lwm2mUID extends ChannelUID {
         return resourceID;
     }
 
-    public static String getChannelID(int id) {
-        return "channel-id" + String.valueOf(id);
+    public int getResourceIDinstance() {
+        return resourceIDinstance;
+    }
+
+    public static String getChannelID(LwM2mResource value, int resourceInstance) {
+        if (value.isMultiInstances() && resourceInstance >= 0) {
+            return String.valueOf(resourceInstance) + "#" + String.valueOf(value.getId());
+        }
+        return String.valueOf(value.getId());
+    }
+
+    public static ThingTypeUID getThingTypeUID(int objectID) {
+        return new ThingTypeUID(lwm2mLeshanBindingConstants.BINDING_ID, String.valueOf(objectID));
     }
 
 }

@@ -13,8 +13,7 @@ Bundle-ClassPath: .,
  lib/element-connector-2.0.0-M1.jar,
  lib/californium-core-2.0.0-M1.jar
 Import-Package: 
- org.openhab.binding.lwm2mleshan,
- org.openhab.binding.lwm2mleshan.handler,
+ com.google.gson,
  org.eclipse.smarthome.config.core,
  org.eclipse.smarthome.config.discovery,
  org.eclipse.smarthome.core.common.registry,
@@ -22,10 +21,12 @@ Import-Package:
  org.eclipse.smarthome.core.library.types,
  org.eclipse.smarthome.core.thing,
  org.eclipse.smarthome.core.thing.binding,
+ org.eclipse.smarthome.core.thing.type,
  org.eclipse.smarthome.core.types,
- org.osgi.service.component,
+ org.openhab.binding.lwm2mleshan,
+ org.openhab.binding.lwm2mleshan.handler,
  org.osgi.framework,
- com.google.gson,
+ org.osgi.service.component,
  org.slf4j
 Service-Component: OSGI-INF/*.xml
 Export-Package: org.openhab.binding.lwm2mleshan;uses:="org.eclipse.smarthome.core.thing",

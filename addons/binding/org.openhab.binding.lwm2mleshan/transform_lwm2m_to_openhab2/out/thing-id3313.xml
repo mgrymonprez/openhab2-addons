@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          bindingId="lwm2mleshan"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="3313">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>Accelerometer</label>
+      <description><![CDATA[Description: This IPSO object can be used to represent a 1-3 axis accelerometer.]]></description>
+      <!--Optional channel Y Value (5703) added dynamically-->
+      <!--Optional channel Z Value (5704) added dynamically-->
+      <!--Optional channel Sensor Units (5701) added dynamically-->
+      <!--Optional channel Min Range Value (5603) added dynamically-->
+      <!--Optional channel Max Range Value (5604) added dynamically-->
+      <channels>
+         <channel id="5702" typeId="5702"/>
+         <!--Channel X Value (5702)-->
+      </channels>
+      <properties>
+         <property name="ObjectID">3313</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3313</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>

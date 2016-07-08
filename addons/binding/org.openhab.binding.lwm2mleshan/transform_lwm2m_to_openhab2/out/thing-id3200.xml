@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                          xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+                          bindingId="lwm2mleshan"
+                          xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+   <thing-type id="3200">
+      <supported-bridge-type-refs>
+         <bridge-type-ref id="lwm2mBridgeThing"/>
+      </supported-bridge-type-refs>
+      <label>Digital Input</label>
+      <description><![CDATA[Generic digital input for non-specific sensors]]></description>
+      <!--Optional channel Digital Input Counter (5501) added dynamically-->
+      <!--Optional channel Digital Input Polarity (5502) added dynamically-->
+      <!--Optional channel Digital Input Debounce (5503) added dynamically-->
+      <!--Optional channel Digital Input Edge Selection (5504) added dynamically-->
+      <!--Optional channel Digital Input Counter Reset (5505) added dynamically-->
+      <!--Optional channel Application Type (5750) added dynamically-->
+      <!--Optional channel Sensor Type (5751) added dynamically-->
+      <channels>
+         <channel id="5500" typeId="5500"/>
+         <!--Channel Digital Input State (5500)-->
+      </channels>
+      <properties>
+         <property name="ObjectID">3200</property>
+         <property name="ObjectURN">urn:oma:lwm2m:ext:3200</property>
+         <property name="MultipleInstances">Multiple</property>
+         <property name="Mandatory">Optional</property>
+      </properties>
+   </thing-type>
+</thing:thing-descriptions>

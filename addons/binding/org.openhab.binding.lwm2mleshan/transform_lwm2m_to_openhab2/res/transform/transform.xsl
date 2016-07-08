@@ -47,20 +47,53 @@
 				<xsl:value-of select="self::node()/Description2" />
 			</description>
 			
+			<xsl:for-each select="Resources/Item">
+                <xsl:variable name="name" select="self::node()/Name" />
+                <xsl:variable name="itemid" select="self::node()/@ID" />
+                <xsl:if test="self::node()/Mandatory='Optional'">
+                    <xsl:comment>Optional channel <xsl:value-of select="$name" /> (<xsl:value-of select="$itemid" />) added dynamically</xsl:comment>
+                </xsl:if>
+            </xsl:for-each>
+            
 			<channels>
 			<xsl:for-each select="Resources/Item">
-				<xsl:variable name="name" select="replace(replace(self::node()/Name, ' ', ''), '/', '_')" />
+				<xsl:variable name="name" select="self::node()/Name" />
 				<xsl:variable name="itemid" select="self::node()/@ID" />
-				<xsl:element name="channel">
-					<xsl:attribute name="id">
-						<xsl:value-of select="$name" />
-					</xsl:attribute>
-					<xsl:attribute name="typeId">
-						<xsl:value-of select="$itemid" />
-					</xsl:attribute>
-				</xsl:element>
+				<xsl:if test="self::node()/Mandatory='Mandatory'">
+			    <xsl:if test="self::node()/MultipleInstances='Single'">
+                   <xsl:element name="channel">
+                       <xsl:attribute name="id">
+                           <xsl:value-of select="$itemid" />
+                       </xsl:attribute>
+                       <xsl:attribute name="typeId">
+                           <xsl:value-of select="$itemid" />
+                       </xsl:attribute>
+                   </xsl:element>
+                    <xsl:comment>Channel <xsl:value-of select="$name" /> (<xsl:value-of select="$itemid" />)</xsl:comment>
+                </xsl:if>
+				</xsl:if>
 			</xsl:for-each>
 			</channels>
+			
+			<channel-groups>
+            <xsl:for-each select="Resources/Item">
+                <xsl:variable name="name" select="self::node()/Name" />
+                <xsl:variable name="itemid" select="self::node()/@ID" />
+                <xsl:if test="self::node()/Mandatory='Mandatory'">
+                <xsl:if test="self::node()/MultipleInstances='Multiple'">
+	                <xsl:element name="channel-group">
+	                    <xsl:attribute name="id">
+	                        <xsl:value-of select="$itemid" />
+	                    </xsl:attribute>
+	                    <xsl:attribute name="typeId">
+	                        <xsl:value-of select="$itemid" />
+	                    </xsl:attribute>
+	                </xsl:element>
+                    <xsl:comment>Channel <xsl:value-of select="$name" /> (<xsl:value-of select="$itemid" />)</xsl:comment>
+                </xsl:if>
+                </xsl:if>
+            </xsl:for-each>
+			</channel-groups>
 			
 			<properties>
 				<property name="ObjectID"><xsl:value-of select="self::node()/ObjectID" /></property>
@@ -75,7 +108,7 @@
 	        <xsl:variable name="itemid" select="self::node()/@ID" />
             <xsl:if test="not($itemid &gt;= 2047)">
                 <xsl:call-template name="ResourceItem"/>
-            </xsl:if>	    
+            </xsl:if>
 		</xsl:for-each>
 
 	</thing:thing-descriptions>

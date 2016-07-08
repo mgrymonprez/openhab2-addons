@@ -13,6 +13,7 @@ import org.eclipse.smarthome.core.thing.Thing;
 import org.eclipse.smarthome.core.thing.ThingTypeUID;
 import org.eclipse.smarthome.core.thing.binding.BaseThingHandlerFactory;
 import org.eclipse.smarthome.core.thing.binding.ThingHandler;
+import org.openhab.binding.lwm2mleshan.lwm2mLeshanBindingConstants;
 import org.openhab.binding.lwm2mleshan.handler.Lwm2mDeviceBridgeHandler;
 import org.openhab.binding.lwm2mleshan.handler.Lwm2mObjectHandler;
 import org.osgi.service.component.ComponentContext;
@@ -29,7 +30,7 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
 
     @Override
     public boolean supportsThingType(ThingTypeUID thingTypeUID) {
-        return thingTypeUID.getId().contains("thing-id") && thingTypeUID.getId().equals("lwm2mBridgeThing");
+        return thingTypeUID.getBindingId().equals(lwm2mLeshanBindingConstants.BINDING_ID);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
             throw new IllegalArgumentException();
         }
 
-        if (thing.getThingTypeUID().getId().equals("lwm2mBridgeThing")) {
+        if (thing.getThingTypeUID().equals(lwm2mLeshanBindingConstants.BRIDGE_TYPE)) {
             return new Lwm2mDeviceBridgeHandler((Bridge) thing, leshan, client);
         } else {
             return new Lwm2mObjectHandler(thing, leshan, client, Lwm2mUID.getObjectID(thing),
