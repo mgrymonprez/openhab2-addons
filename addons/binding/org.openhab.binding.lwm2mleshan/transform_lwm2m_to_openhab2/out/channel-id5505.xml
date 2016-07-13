@@ -6,7 +6,7 @@
    <channel-type id="5505" advanced="true">
       <item-type>Switch</item-type>
       <label>Digital Input Counter Reset</label>
-      <description><![CDATA[Reset the Counter value.]]></description>
+      <description><![CDATA[Reset the Counter value]]></description>
       <tags>
          <tag>Executable</tag>
          <tag>Opaque</tag>

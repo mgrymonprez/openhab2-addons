@@ -4,7 +4,7 @@
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5522">
-      <item-type>					String				</item-type>
+      <item-type>String</item-type>
       <label>Clip</label>
       <description><![CDATA[Audio Clip that is playable (i.e. short audio recording indicating the floor in an elevator).]]></description>
       <tags>

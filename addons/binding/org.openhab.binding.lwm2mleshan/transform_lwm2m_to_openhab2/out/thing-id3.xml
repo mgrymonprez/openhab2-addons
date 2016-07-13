@@ -9,29 +9,24 @@
       </supported-bridge-type-refs>
       <label>Device</label>
       <description><![CDATA[This LWM2M Object provides a range of device related information which can be queried by the LWM2M Server, and a device reboot and factory reset function.]]></description>
-      <!--Optional channel Manufacturer (0) added dynamically-->
-      <!--Optional channel Model Number (1) added dynamically-->
-      <!--Optional channel Serial Number (2) added dynamically-->
-      <!--Optional channel Firmware Version (3) added dynamically-->
-      <!--Optional channel Factory Reset (5) added dynamically-->
-      <!--Optional channel Available Power Sources (6) added dynamically-->
-      <!--Optional channel Power Source Voltage (7) added dynamically-->
-      <!--Optional channel Power Source Current (8) added dynamically-->
-      <!--Optional channel Battery Level (9) added dynamically-->
-      <!--Optional channel Memory Free (10) added dynamically-->
-      <!--Optional channel Reset Error Code (12) added dynamically-->
-      <!--Optional channel Current Time (13) added dynamically-->
-      <!--Optional channel UTC Offset (14) added dynamically-->
-      <!--Optional channel Timezone (15) added dynamically-->
-      <channels>
-         <channel id="4" typeId="4"/>
-         <!--Channel Reboot (4)-->
-         <channel id="16" typeId="16"/>
-         <!--Channel Supported Binding and Modes (16)-->
-      </channels>
+      <!--Optional channel "Manufacturer" (0) will be added dynamically-->
+      <!--Optional channel "Model Number" (1) will be added dynamically-->
+      <!--Optional channel "Serial Number" (2) will be added dynamically-->
+      <!--Optional channel "Firmware Version" (3) will be added dynamically-->
+      <!--Optional channel "Factory Reset" (5) will be added dynamically-->
+      <!--Optional channel "Available Power Sources" (6) will be added dynamically-->
+      <!--Optional channel "Power Source Voltage" (7) will be added dynamically-->
+      <!--Optional channel "Power Source Current" (8) will be added dynamically-->
+      <!--Optional channel "Battery Level" (9) will be added dynamically-->
+      <!--Optional channel "Memory Free" (10) will be added dynamically-->
+      <!--Optional channel "Reset Error Code" (12) will be added dynamically-->
+      <!--Optional channel "Current Time" (13) will be added dynamically-->
+      <!--Optional channel "UTC Offset" (14) will be added dynamically-->
+      <!--Optional channel "Timezone" (15) will be added dynamically-->
       <channel-groups>
-         <channel-group id="11" typeId="11"/>
-         <!--Channel Error Code (11)-->
+         <channel-group id="4" typeId="4"><!--Channel "Reboot" (4)--></channel-group>
+         <channel-group id="11" typeId="11"><!--Channel "Error Code" (11)--></channel-group>
+         <channel-group id="16" typeId="16"><!--Channel "Supported Binding and Modes" (16)--></channel-group>
       </channel-groups>
       <properties>
          <property name="ObjectID">3</property>
@@ -40,30 +35,60 @@
          <property name="Mandatory">Mandatory</property>
       </properties>
    </thing-type>
+   <channel-group-type id="0"><!--MultiInstances: Single-->
+      <label>Manufacturer</label>
+      <channels>
+         <channel id="0" typeId="0"><!--Channel "Manufacturer", ID: 0, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="0" advanced="true">
       <item-type>String</item-type>
       <label>Manufacturer</label>
       <description><![CDATA[Human readable manufacturer name]]></description>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="1"><!--MultiInstances: Single-->
+      <label>Model Number</label>
+      <channels>
+         <channel id="0" typeId="1"><!--Channel "Model Number", ID: 1, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="1" advanced="true">
       <item-type>String</item-type>
       <label>Model Number</label>
       <description><![CDATA[A model identifier (manufacturer specified string)]]></description>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="2"><!--MultiInstances: Single-->
+      <label>Serial Number</label>
+      <channels>
+         <channel id="0" typeId="2"><!--Channel "Serial Number", ID: 2, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="2" advanced="true">
       <item-type>String</item-type>
       <label>Serial Number</label>
       <description><![CDATA[Serial Number]]></description>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="3"><!--MultiInstances: Single-->
+      <label>Firmware Version</label>
+      <channels>
+         <channel id="0" typeId="3"><!--Channel "Firmware Version", ID: 3, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="3" advanced="true">
       <item-type>String</item-type>
       <label>Firmware Version</label>
       <description><![CDATA[Current firmware version]]></description>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="4"><!--MultiInstances: Single-->
+      <label>Reboot</label>
+      <channels>
+         <channel id="0" typeId="4"><!--Channel "Reboot", ID: 4, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="4">
       <item-type>Switch</item-type>
       <label>Reboot</label>
@@ -72,14 +97,26 @@
          <tag>Executable</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="5"><!--MultiInstances: Single-->
+      <label>Factory Reset</label>
+      <channels>
+         <channel id="0" typeId="5"><!--Channel "Factory Reset", ID: 5, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="5" advanced="true">
       <item-type>Switch</item-type>
       <label>Factory Reset</label>
-      <description><![CDATA[Perform factory reset of the LWM2M Device to make the LWM2M Device have the same configuration as at the initial deployment.When this Resource is executed, “De-register” operation  MAY be sent to the LWM2M Server(s) before factory reset of the LWM2M Device.]]></description>
+      <description><![CDATA[Perform factory reset of the LWM2M Device to make the LWM2M Device have the same configuration as at the initial deployment.When this Resource is executed, “De-register” operation MAY be sent to the LWM2M Server(s) before factory reset of the LWM2M Device.]]></description>
       <tags>
          <tag>Executable</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="6"><!--MultiInstances: Multiple-->
+      <label>Available Power Sources</label>
+      <channels>
+         <channel id="0" typeId="6"><!--Channel "Available Power Sources", ID: 6, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="6" advanced="true">
       <item-type>Number</item-type>
       <label>Available Power Sources</label>
@@ -89,6 +126,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="7"><!--MultiInstances: Multiple-->
+      <label>Power Source Voltage</label>
+      <channels>
+         <channel id="0" typeId="7"><!--Channel "Power Source Voltage", ID: 7, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="7" advanced="true">
       <item-type>Number</item-type>
       <label>Power Source Voltage</label>
@@ -98,6 +141,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="8"><!--MultiInstances: Multiple-->
+      <label>Power Source Current</label>
+      <channels>
+         <channel id="0" typeId="8"><!--Channel "Power Source Current", ID: 8, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="8" advanced="true">
       <item-type>Number</item-type>
       <label>Power Source Current</label>
@@ -107,6 +156,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="9"><!--MultiInstances: Single-->
+      <label>Battery Level</label>
+      <channels>
+         <channel id="0" typeId="9"><!--Channel "Battery Level", ID: 9, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="9" advanced="true">
       <item-type>Number</item-type>
       <label>Battery Level</label>
@@ -116,6 +171,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="10"><!--MultiInstances: Single-->
+      <label>Memory Free</label>
+      <channels>
+         <channel id="0" typeId="10"><!--Channel "Memory Free", ID: 10, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="10" advanced="true">
       <item-type>Number</item-type>
       <label>Memory Free</label>
@@ -125,6 +186,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="11"><!--MultiInstances: Multiple-->
+      <label>Error Code</label>
+      <channels>
+         <channel id="0" typeId="11"><!--Channel "Error Code", ID: 11, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="11">
       <item-type>Number</item-type>
       <label>Error Code</label>
@@ -134,6 +201,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="12"><!--MultiInstances: Single-->
+      <label>Reset Error Code</label>
+      <channels>
+         <channel id="0" typeId="12"><!--Channel "Reset Error Code", ID: 12, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="12" advanced="true">
       <item-type>Switch</item-type>
       <label>Reset Error Code</label>
@@ -142,21 +215,45 @@
          <tag>Executable</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="13"><!--MultiInstances: Single-->
+      <label>Current Time</label>
+      <channels>
+         <channel id="0" typeId="13"><!--Channel "Current Time", ID: 13, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="13" advanced="true">
       <item-type>DateTime</item-type>
       <label>Current Time</label>
       <description><![CDATA[Current UNIX time of the LWM2M Client.The LWM2M Client should be responsible to increase this time value as every second elapses.The LWM2M Server is able to write this Resource to make the LWM2M Client synchronized with the LWM2M Server.]]></description>
    </channel-type>
+   <channel-group-type id="14"><!--MultiInstances: Single-->
+      <label>UTC Offset</label>
+      <channels>
+         <channel id="0" typeId="14"><!--Channel "UTC Offset", ID: 14, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="14" advanced="true">
       <item-type>String</item-type>
       <label>UTC Offset</label>
       <description><![CDATA[Indicates the UTC offset currently in effect for this LWM2M Device. UTC+X [ISO 8601].]]></description>
    </channel-type>
+   <channel-group-type id="15"><!--MultiInstances: Single-->
+      <label>Timezone</label>
+      <channels>
+         <channel id="0" typeId="15"><!--Channel "Timezone", ID: 15, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="15" advanced="true">
       <item-type>String</item-type>
       <label>Timezone</label>
       <description><![CDATA[Indicates in which time zone the LWM2M Device is located, in IANA Timezone (TZ) database format.]]></description>
    </channel-type>
+   <channel-group-type id="16"><!--MultiInstances: Single-->
+      <label>Supported Binding and Modes</label>
+      <channels>
+         <channel id="0" typeId="16"><!--Channel "Supported Binding and Modes", ID: 16, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="16">
       <item-type>String</item-type>
       <label>Supported Binding and Modes</label>

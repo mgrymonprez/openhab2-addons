@@ -4,7 +4,7 @@
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5811" advanced="true">
-      <item-type>					Number				</item-type>
+      <item-type>Number</item-type>
       <label>Min Measured reactive power</label>
       <description><![CDATA[The minimum reactive power measured by the sensor since it is ON]]></description>
       <tags>

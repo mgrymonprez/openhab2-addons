@@ -5,8 +5,8 @@
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5501" advanced="true">
       <item-type>Number</item-type>
-      <label>Digital Input Counter</label>
-      <description><![CDATA[The number of times the input.]]></description>
+      <label>Digital Input State</label>
+      <description><![CDATA[The number of times the input transitions from 0 to 1.]]></description>
       <tags>
          <tag>Integer</tag>
       </tags>

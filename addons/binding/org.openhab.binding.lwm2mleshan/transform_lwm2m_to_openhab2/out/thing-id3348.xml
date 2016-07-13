@@ -8,12 +8,11 @@
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
       <label>Multistate Selector</label>
-      <description><![CDATA[This IPSO object is used to represent the state of a multistate selector switch with a number of fixed positions.              ]]></description>
-      <!--Optional channel Application Type (5750) added dynamically-->
-      <channels>
-         <channel id="5547" typeId="5547"/>
-         <!--Channel Multistate input (5547)-->
-      </channels>
+      <description><![CDATA[This IPSO object is used to represent the state of a multistate selector switch with a number of fixed positions.]]></description>
+      <!--Optional channel "Application Type" (5750) will be added dynamically-->
+      <channel-groups>
+         <channel-group id="5547" typeId="5547"><!--Channel "Multistate input" (5547)--></channel-group>
+      </channel-groups>
       <properties>
          <property name="ObjectID">3348</property>
          <property name="ObjectURN">urn:oma:lwm2m:ext:3348</property>
@@ -21,4 +20,16 @@
          <property name="Mandatory">Optional</property>
       </properties>
    </thing-type>
+   <channel-group-type id="5547"><!--MultiInstances: Single-->
+      <label>Multistate input</label>
+      <channels>
+         <channel id="0" typeId="5547"><!--Channel "Multistate input", ID: 5547, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
+   <channel-group-type id="5750"><!--MultiInstances: Single-->
+      <label>Application Type</label>
+      <channels>
+         <channel id="0" typeId="5750"><!--Channel "Application Type", ID: 5750, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
 </thing:thing-descriptions>

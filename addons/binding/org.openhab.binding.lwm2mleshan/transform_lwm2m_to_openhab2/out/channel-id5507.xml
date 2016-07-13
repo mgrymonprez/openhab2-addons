@@ -4,7 +4,7 @@
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5507" advanced="true">
-      <item-type>					Number				</item-type>
+      <item-type>Number</item-type>
       <label>Fractional Time</label>
       <description><![CDATA[For shorter times of a fraction of a second (i.e. 0.23).]]></description>
       <tags>

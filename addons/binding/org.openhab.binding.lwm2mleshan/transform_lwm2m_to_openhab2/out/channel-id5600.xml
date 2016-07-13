@@ -4,7 +4,7 @@
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5600">
-      <item-type>					Number				</item-type>
+      <item-type>Number</item-type>
       <label>Analog Input Current Value</label>
       <description><![CDATA[The current value of the analog input.]]></description>
       <tags>

@@ -4,9 +4,12 @@
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5701" advanced="true">
-      <item-type>String</item-type>
+      <item-type>Number</item-type>
       <label>Sensor Units</label>
-      <description><![CDATA[If present, the type of sensor defined as the UCUM Unit Definition e.g. “Cel” for Temperature in Celcius.]]></description>
+      <description><![CDATA[Measurement Units Definition e.g. Rate, example units = Feet per Second]]></description>
+      <tags>
+         <tag>Float</tag>
+      </tags>
       <state readOnly="true"/>
    </channel-type>
 </thing:thing-descriptions>

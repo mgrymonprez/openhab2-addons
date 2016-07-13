@@ -8,16 +8,13 @@
          <bridge-type-ref id="lwm2mBridgeThing"/>
       </supported-bridge-type-refs>
       <label>LWM2M Access Control</label>
-      <description><![CDATA[Access Control Object is used to check whether the LWM2M Server has access right for performing a operation.==E.3.1	Object Instance Configurations==If a new LWM2M Server Account is added when LWM2M Client has only one LWM2M Server Account, Client MUST ensure that Access Control Object Instances for every Object Instance except Security Object Instance exist. The LWM2M Client MUST create the missing Access Control Object Instances as follows:−	Access Control Owner MUST be the previously existing LWM2M Server−	Previously existing LWM2M Server MUST have full access right.]]></description>
-      <!--Optional channel ACL (2) added dynamically-->
-      <channels>
-         <channel id="0" typeId="0"/>
-         <!--Channel Object ID (0)-->
-         <channel id="1" typeId="1"/>
-         <!--Channel Object Instance ID (1)-->
-         <channel id="3" typeId="3"/>
-         <!--Channel Access Control Owner (3)-->
-      </channels>
+      <description><![CDATA[Access Control Object is used to check whether the LWM2M Server has access right for performing a operation.==E.3.1 Object Instance Configurations==If a new LWM2M Server Account is added when LWM2M Client has only one LWM2M Server Account, Client MUST ensure that Access Control Object Instances for every Object Instance except Security Object Instance exist. The LWM2M Client MUST create the missing Access Control Object Instances as follows:− Access Control Owner MUST be the previously existing LWM2M Server− Previously existing LWM2M Server MUST have full access right.]]></description>
+      <!--Optional channel "ACL" (2) will be added dynamically-->
+      <channel-groups>
+         <channel-group id="0" typeId="0"><!--Channel "Object ID" (0)--></channel-group>
+         <channel-group id="1" typeId="1"><!--Channel "Object Instance ID" (1)--></channel-group>
+         <channel-group id="3" typeId="3"><!--Channel "Access Control Owner" (3)--></channel-group>
+      </channel-groups>
       <properties>
          <property name="ObjectID">2</property>
          <property name="ObjectURN">TBD</property>
@@ -25,6 +22,12 @@
          <property name="Mandatory">Optional</property>
       </properties>
    </thing-type>
+   <channel-group-type id="0"><!--MultiInstances: Single-->
+      <label>Object ID</label>
+      <channels>
+         <channel id="0" typeId="0"><!--Channel "Object ID", ID: 0, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="0">
       <item-type>Number</item-type>
       <label>Object ID</label>
@@ -34,6 +37,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="1"><!--MultiInstances: Single-->
+      <label>Object Instance ID</label>
+      <channels>
+         <channel id="0" typeId="1"><!--Channel "Object Instance ID", ID: 1, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="1">
       <item-type>Number</item-type>
       <label>Object Instance ID</label>
@@ -43,6 +52,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="2"><!--MultiInstances: Multiple-->
+      <label>ACL</label>
+      <channels>
+         <channel id="0" typeId="2"><!--Channel "ACL", ID: 2, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="2" advanced="true">
       <item-type>Number</item-type>
       <label>ACL</label>
@@ -51,6 +66,12 @@
          <tag>Integer</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="3"><!--MultiInstances: Single-->
+      <label>Access Control Owner</label>
+      <channels>
+         <channel id="0" typeId="3"><!--Channel "Access Control Owner", ID: 3, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="3">
       <item-type>Number</item-type>
       <label>Access Control Owner</label>

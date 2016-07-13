@@ -65,12 +65,11 @@ public class BridgesFromDevicesDiscovery extends AbstractDiscoveryService implem
 
     @Override
     public void registered(Client client) {
-        // TODO registered(Client client)
-        // Map<String, Object> properties = new HashMap<>(3);
-        // ThingUID uid = new ThingUID(YamahaReceiverBindingConstants.THING_TYPE_YAMAHAAV, zoneName);
-        // DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(uid).withProperties(properties)
-        // .withLabel(state.name + " " + zoneName).build();
-        // thingDiscovered(discoveryResult);
+        Map<String, Object> properties = new HashMap<>(3);
+        ThingUID uid = new ThingUID(lwm2mLeshanBindingConstants.BRIDGE_TYPE, client.getEndpoint());
+        DiscoveryResult discoveryResult = DiscoveryResultBuilder.create(uid).withProperties(properties)
+                .withLabel(client.getAddress().getHostAddress()).build();
+        thingDiscovered(discoveryResult);
     }
 
     @Override
@@ -79,5 +78,7 @@ public class BridgesFromDevicesDiscovery extends AbstractDiscoveryService implem
 
     @Override
     public void unregistered(Client client) {
+        ThingUID thingUID = new ThingUID(lwm2mLeshanBindingConstants.BRIDGE_TYPE, client.getEndpoint());
+        thingRemoved(thingUID);
     }
 }

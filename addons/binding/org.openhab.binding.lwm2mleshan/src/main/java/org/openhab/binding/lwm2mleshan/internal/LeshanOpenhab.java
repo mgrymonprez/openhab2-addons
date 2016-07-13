@@ -15,14 +15,14 @@ import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.ECPublicKeySpec;
 import java.security.spec.KeySpec;
 import java.util.Dictionary;
-import java.util.Map;
-import java.util.TreeMap;
 import java.util.concurrent.TimeoutException;
 
+import javax.naming.CommunicationException;
+
+import org.eclipse.leshan.LinkObject;
 import org.eclipse.leshan.core.model.ObjectModel;
 import org.eclipse.leshan.core.model.ResourceModel;
 import org.eclipse.leshan.core.node.LwM2mNode;
-import org.eclipse.leshan.core.node.LwM2mObject;
 import org.eclipse.leshan.core.node.LwM2mObjectInstance;
 import org.eclipse.leshan.core.observation.Observation;
 import org.eclipse.leshan.core.request.DownlinkRequest;
@@ -36,6 +36,7 @@ import org.eclipse.leshan.core.response.ReadResponse;
 import org.eclipse.leshan.server.californium.LeshanServerBuilder;
 import org.eclipse.leshan.server.californium.impl.LeshanServer;
 import org.eclipse.leshan.server.client.Client;
+import org.eclipse.leshan.server.client.ClientRegistryListener;
 import org.eclipse.leshan.server.impl.SecurityRegistryImpl;
 import org.eclipse.leshan.server.model.LwM2mModelProvider;
 import org.eclipse.leshan.server.model.StandardModelProvider;
@@ -55,14 +56,16 @@ import org.slf4j.LoggerFactory;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class LeshanOpenhab implements ObservationRegistryListener {
+public class LeshanOpenhab {
+    private static final long TIMEOUT = 5000; // ms
+
     private Logger logger = LoggerFactory.getLogger(Lwm2mObjectHandler.class);
     private LeshanServer lwServer;
     private final Gson gson;
-    private Map<Observation, Lwm2mObjectHandler> observer_to_handler = new TreeMap<>();
     private BridgesFromDevicesDiscovery discover = new BridgesFromDevicesDiscovery();
 
     public LeshanOpenhab() {
+        // Register a node deserializer
         GsonBuilder gsonBuilder = new GsonBuilder();
         gsonBuilder.registerTypeHierarchyAdapter(LwM2mNode.class, new LwM2mNodeDeserializer());
         gsonBuilder.setDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
@@ -81,6 +84,15 @@ public class LeshanOpenhab implements ObservationRegistryListener {
         return in == null ? defaultV : in;
     }
 
+    /**
+     * Start the Leshan server. The key-value properties parameter is used to obtain the ports, and security parameters.
+     *
+     * @param properties Obtain the port (lwm2m_port), the secure port ("lwm2m_port_secure"), if we want to use elliptic
+     *            curves ("lwm2m_secure_use_ecc") and the key, elliptic curve x,y parameters ("lwm2m_secure_public_key",
+     *            "lwm2m_secure_point_x",
+     *            "lwm2m_secure_point_y").
+     * @throws Exception
+     */
     public void createAndStartServer(Dictionary<String, Object> properties) throws Exception {
         String localAddress = null;
         int localPort = getOrDefault((Integer) properties.get("lwm2m_port"), LeshanServerBuilder.PORT);
@@ -130,7 +142,6 @@ public class LeshanOpenhab implements ObservationRegistryListener {
             SecurityInfo info1 = SecurityInfo.newPreSharedKeyInfo("lwm2mClient1", "identity1", privateKeyPart);
             lwServer.getSecurityRegistry().add(info1);
         }
-        lwServer.getObservationRegistry().addListener(this);
         lwServer.start();
     }
 
@@ -143,45 +154,63 @@ public class LeshanOpenhab implements ObservationRegistryListener {
         lwServer = null;
     }
 
-    private static final long TIMEOUT = 5000; // ms
-
-    public Observation startObserve(Lwm2mObjectHandler handler) throws InterruptedException {
-        ObserveRequest request = new ObserveRequest(handler.objectID, handler.objectIDinstance);
-        ObserveResponse cResponse = lwServer.send(handler.client, request, TIMEOUT);
+    /**
+     * Start observing an lwm2m object instance. This should be called by a thing handler during initialization
+     * to be notified of resource changes.
+     *
+     * @param ObjectInstance The instance id of the object, 0 for single instance objects.
+     * @param listener A listener, usually the thing handler.
+     * @return Return an Observation object. Use this to call stopObserve().
+     * @throws InterruptedException
+     */
+    public Observation startObserve(ObjectInstance id, ObservationRegistryListener listener)
+            throws InterruptedException {
+        ObserveRequest request = new ObserveRequest(id.getObjectID(), id.getInstanceID());
+        ObserveResponse cResponse = lwServer.send(id.getClient(), request, TIMEOUT);
         if (cResponse == null) {
-            logger.warn(String.format("startObserve failed for %i/%i", handler.objectID, handler.objectIDinstance));
+            logger.warn(String.format("startObserve failed for %i/%i", id.getObjectID(), id.getInstanceID()));
         } else {
-            String response = this.gson.toJson(cResponse);
+            String response = gson.toJson(cResponse);
             if (cResponse.getCode().isError()) {
                 logger.warn("Response indicate error '%s'", cResponse.getErrorMessage());
             } else {
                 logger.debug("Response %s", response);
             }
-            observer_to_handler.put(cResponse.getObservation(), handler);
+            lwServer.getObservationRegistry().addListener(listener);
             return cResponse.getObservation();
         }
         return null;
     }
 
-    public void stopObserve(Observation observation) {
-        observer_to_handler.remove(observation);
+    /**
+     * Stop observing an object instance.
+     *
+     * @param observation The Observation object, you got by calling startObserve().
+     * @param listener The listener, you registered by calling startObserve().
+     */
+    public void stopObserve(Observation observation, ObservationRegistryListener listener) {
+        lwServer.getObservationRegistry().removeListener(listener);
         lwServer.getObservationRegistry().cancelObservation(observation);
     }
 
+    /**
+     * Stop all observations for the given client.
+     *
+     * @param client
+     */
     public void stopObserve(Client client) {
         lwServer.getObservationRegistry().cancelObservations(client);
     }
 
     // The coap url /endpoint/objectId/instanceId maps to /bridgeID/thingTypeID/thingID
-    public void requestChange(Lwm2mObjectHandler handler, ResourceModel resource, Command command)
+    public void requestChange(ObjectInstance id, String unit, ResourceModel resource, Command command)
             throws InterruptedException, TimeoutException {
 
         DownlinkRequest<?> request = null;
 
         int resourceID = resource.id;
-        Client client = handler.client;
-        int objectID = handler.objectID;
-        int objectIDinstance = handler.objectIDinstance;
+        int objectID = id.getObjectID();
+        int objectIDinstance = id.getInstanceID();
 
         if (resource.operations.isExecutable()) {
             request = new ExecuteRequest(objectID, objectIDinstance, resourceID);
@@ -193,7 +222,7 @@ public class LeshanOpenhab implements ObservationRegistryListener {
             } else if (command instanceof HSBType) {
                 HSBType v = (HSBType) command;
                 String color;
-                switch (handler.unit) {
+                switch (unit) {
                     case "RGB":
                         color = String.valueOf(v.getRed()) + "," + String.valueOf(v.getGreen()) + ","
                                 + String.valueOf(v.getRed());
@@ -246,7 +275,7 @@ public class LeshanOpenhab implements ObservationRegistryListener {
             }
         }
 
-        LwM2mResponse cResponse = lwServer.send(client, request, TIMEOUT);
+        LwM2mResponse cResponse = lwServer.send(id.getClient(), request, TIMEOUT);
         if (cResponse == null) {
             throw new TimeoutException(
                     String.format("Request %i/%i/%i timed out.", objectID, objectIDinstance, resourceID));
@@ -267,45 +296,24 @@ public class LeshanOpenhab implements ObservationRegistryListener {
     public Client getClient(String endpoint) {
         if ("demo".equals(endpoint)) {
             try {
-                return new Client.Builder("redIDDemo", "demo", InetAddress.getByName("127.0.0.1"),
-                        LeshanServerBuilder.PORT, new InetSocketAddress(12345)).build();
+                LinkObject[] objectLinks = { new LinkObject("/3200") };
+                return new Client.Builder("clientIDDemo", "demo", InetAddress.getByName("127.0.0.1"),
+                        LeshanServerBuilder.PORT, new InetSocketAddress(12345)).objectLinks(objectLinks).build();
             } catch (UnknownHostException ignored) {
             }
         }
         return lwServer.getClientRegistry().get(endpoint);
     }
 
-    @Override
-    public void newObservation(Observation observation) {
-    }
-
-    @Override
-    public void cancelled(Observation observation) {
-    }
-
-    @Override
-    public void newValue(Observation observation, LwM2mNode value) {
-        Lwm2mObjectHandler handler = observer_to_handler.get(observation);
-        if (!handler.updateLwM2mNode(value)) {
-            if (value instanceof LwM2mObject) {
-                // TODO create new object instance thing
-            } else {
-                logger.warn("new value not handled");
-            }
-        }
-    }
-
-    public LwM2mObjectInstance requestValues(Lwm2mObjectHandler handler) throws InterruptedException {
-        ReadRequest readRequest = new ReadRequest(handler.objectID, handler.objectIDinstance);
-        ReadResponse readResponse = lwServer.send(handler.client, readRequest);
+    public LwM2mObjectInstance requestValues(ObjectInstance id) throws InterruptedException, CommunicationException {
+        ReadRequest readRequest = new ReadRequest(id.getObjectID(), id.getInstanceID());
+        ReadResponse readResponse = lwServer.send(id.getClient(), readRequest);
         if (readResponse.isFailure()) {
-            logger.warn("requestValues failed: %s", readResponse.getErrorMessage());
-            return null;
+            throw new CommunicationException(String.format("requestValues failed: %s", readResponse.getErrorMessage()));
         }
         LwM2mNode content = readResponse.getContent();
         if (!(content instanceof LwM2mObjectInstance)) {
-            logger.warn("requestValues expected object instance");
-            return null;
+            throw new CommunicationException("requestValues expected object instance");
         }
         return (LwM2mObjectInstance) content;
     }
@@ -317,5 +325,23 @@ public class LeshanOpenhab implements ObservationRegistryListener {
 
     public void stopDiscovery() {
         discover.stop();
+    }
+
+    public ObjectInstance[] getObjectLinks(Client client) {
+        LinkObject[] objectLinks = client.getObjectLinks();
+        ObjectInstance[] objects = new ObjectInstance[objectLinks.length];
+        for (int i = 0; i < objectLinks.length; i++) {
+            LinkObject linkObject = objectLinks[i];
+            objects[i] = new ObjectInstance(client, linkObject.getUrl());
+        }
+        return objects;
+    }
+
+    public void startClientObserve(ClientRegistryListener listener) {
+        lwServer.getClientRegistry().addListener(listener);
+    }
+
+    public void stopClientObserve(ClientRegistryListener listener) {
+        lwServer.getClientRegistry().removeListener(listener);
     }
 }

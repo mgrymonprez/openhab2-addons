@@ -9,22 +9,17 @@
       </supported-bridge-type-refs>
       <label>LWM2M Server</label>
       <description><![CDATA[This LWM2M Objects provides the data related to a LWM2M Server. A Bootstrap Server has no such an Object Instance associated to it.]]></description>
-      <!--Optional channel Default Minimum Period (2) added dynamically-->
-      <!--Optional channel Default Maximum Period (3) added dynamically-->
-      <!--Optional channel Disable (4) added dynamically-->
-      <!--Optional channel Disable Timeout (5) added dynamically-->
-      <channels>
-         <channel id="0" typeId="0"/>
-         <!--Channel Short Server ID (0)-->
-         <channel id="1" typeId="1"/>
-         <!--Channel Lifetime (1)-->
-         <channel id="6" typeId="6"/>
-         <!--Channel Notification Storing When Disabled or Offline (6)-->
-         <channel id="7" typeId="7"/>
-         <!--Channel Binding (7)-->
-         <channel id="8" typeId="8"/>
-         <!--Channel Registration Update Trigger (8)-->
-      </channels>
+      <!--Optional channel "Default Minimum Period" (2) will be added dynamically-->
+      <!--Optional channel "Default Maximum Period" (3) will be added dynamically-->
+      <!--Optional channel "Disable" (4) will be added dynamically-->
+      <!--Optional channel "Disable Timeout" (5) will be added dynamically-->
+      <channel-groups>
+         <channel-group id="0" typeId="0"><!--Channel "Short Server ID" (0)--></channel-group>
+         <channel-group id="1" typeId="1"><!--Channel "Lifetime" (1)--></channel-group>
+         <channel-group id="6" typeId="6"><!--Channel "Notification Storing When Disabled or Offline" (6)--></channel-group>
+         <channel-group id="7" typeId="7"><!--Channel "Binding" (7)--></channel-group>
+         <channel-group id="8" typeId="8"><!--Channel "Registration Update Trigger" (8)--></channel-group>
+      </channel-groups>
       <properties>
          <property name="ObjectID">1</property>
          <property name="ObjectURN">TBD</property>
@@ -32,6 +27,12 @@
          <property name="Mandatory">Mandatory</property>
       </properties>
    </thing-type>
+   <channel-group-type id="0"><!--MultiInstances: Single-->
+      <label>Short Server ID</label>
+      <channels>
+         <channel id="0" typeId="0"><!--Channel "Short Server ID", ID: 0, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="0">
       <item-type>Number</item-type>
       <label>Short Server ID</label>
@@ -41,6 +42,12 @@
       </tags>
       <state readOnly="true"/>
    </channel-type>
+   <channel-group-type id="1"><!--MultiInstances: Single-->
+      <label>Lifetime</label>
+      <channels>
+         <channel id="0" typeId="1"><!--Channel "Lifetime", ID: 1, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="1">
       <item-type>Number</item-type>
       <label>Lifetime</label>
@@ -49,6 +56,12 @@
          <tag>Integer</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="2"><!--MultiInstances: Single-->
+      <label>Default Minimum Period</label>
+      <channels>
+         <channel id="0" typeId="2"><!--Channel "Default Minimum Period", ID: 2, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="2" advanced="true">
       <item-type>Number</item-type>
       <label>Default Minimum Period</label>
@@ -57,6 +70,12 @@
          <tag>Integer</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="3"><!--MultiInstances: Single-->
+      <label>Default Maximum Period</label>
+      <channels>
+         <channel id="0" typeId="3"><!--Channel "Default Maximum Period", ID: 3, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="3" advanced="true">
       <item-type>Number</item-type>
       <label>Default Maximum Period</label>
@@ -65,6 +84,12 @@
          <tag>Integer</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="4"><!--MultiInstances: Single-->
+      <label>Disable</label>
+      <channels>
+         <channel id="0" typeId="4"><!--Channel "Disable", ID: 4, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="4" advanced="true">
       <item-type>Switch</item-type>
       <label>Disable</label>
@@ -73,6 +98,12 @@
          <tag>Executable</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="5"><!--MultiInstances: Single-->
+      <label>Disable Timeout</label>
+      <channels>
+         <channel id="0" typeId="5"><!--Channel "Disable Timeout", ID: 5, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="5" advanced="true">
       <item-type>Number</item-type>
       <label>Disable Timeout</label>
@@ -81,17 +112,35 @@
          <tag>Integer</tag>
       </tags>
    </channel-type>
+   <channel-group-type id="6"><!--MultiInstances: Single-->
+      <label>Notification Storing When Disabled or Offline</label>
+      <channels>
+         <channel id="0" typeId="6"><!--Channel "Notification Storing When Disabled or Offline", ID: 6, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="6">
       <item-type>Switch</item-type>
       <label>Notification Storing When Disabled or Offline</label>
       <description><![CDATA[If true, the LWM2M Client stores “Notify” operations to the LWM2M Server while the LWM2M Server account is disabled or the LWM2M Client is offline. After the LWM2M Server account is enabled or the LWM2M Client is online, the LWM2M Client reports the stored “Notify” operations to the Server.If false, the LWM2M Client discards all the “Notify” operationsor temporally disables the Observe function while the LWM2M Server is disabled or the LWM2M Client is offline.The default value is true.The maximum number of storing Notification per the Server is up to the implementation.]]></description>
       <category>Switch</category>
    </channel-type>
+   <channel-group-type id="7"><!--MultiInstances: Single-->
+      <label>Binding</label>
+      <channels>
+         <channel id="0" typeId="7"><!--Channel "Binding", ID: 7, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="7">
       <item-type>String</item-type>
       <label>Binding</label>
       <description><![CDATA[This Resource defines the transport binding configured for the LWM2M Client.If the LWM2M Client supports the binding specified in this Resource, the LWM2M Client MUST use that for Current Binding and Mode.]]></description>
    </channel-type>
+   <channel-group-type id="8"><!--MultiInstances: Single-->
+      <label>Registration Update Trigger</label>
+      <channels>
+         <channel id="0" typeId="8"><!--Channel "Registration Update Trigger", ID: 8, InstanceID: 0--></channel>
+      </channels>
+   </channel-group-type>
    <channel-type id="8">
       <item-type>Switch</item-type>
       <label>Registration Update Trigger</label>

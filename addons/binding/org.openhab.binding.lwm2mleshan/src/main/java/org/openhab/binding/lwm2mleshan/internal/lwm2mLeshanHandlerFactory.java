@@ -43,8 +43,7 @@ public class lwm2mLeshanHandlerFactory extends BaseThingHandlerFactory {
         if (thing.getThingTypeUID().equals(lwm2mLeshanBindingConstants.BRIDGE_TYPE)) {
             return new Lwm2mDeviceBridgeHandler((Bridge) thing, leshan, client);
         } else {
-            return new Lwm2mObjectHandler(thing, leshan, client, Lwm2mUID.getObjectID(thing),
-                    Lwm2mUID.getObjectIDInstance(thing));
+            return new Lwm2mObjectHandler(thing, leshan, new ObjectInstance(client, thing));
         }
     }
 

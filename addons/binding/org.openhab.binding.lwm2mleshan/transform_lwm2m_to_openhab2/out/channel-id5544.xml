@@ -4,7 +4,7 @@
                           bindingId="lwm2mleshan"
                           xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
    <channel-type id="5544" advanced="true">
-      <item-type>					Number				</item-type>
+      <item-type>Number</item-type>
       <label>Cumulative Time</label>
       <description><![CDATA[The total time in seconds that the timer input is true. Writing a 0 resets the time.]]></description>
       <tags>
