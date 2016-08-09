@@ -49,7 +49,7 @@ import org.slf4j.LoggerFactory;
  * - Object 3: (device), resource 13-15: Time, Timezone -> Set on first connect, if available
  * - Object 4: Connectivity state -> Display to the user
  * - Object 5: Firmware updates
- * - Object 2: Access restrictions
+ * - Object 2: Access restrictions (wait for ESH https://github.com/eclipse/smarthome/issues/579)
  *
  * @author David Graeff - Initial contribution
  */
@@ -222,7 +222,6 @@ public class Lwm2mDeviceBridgeHandler extends BaseBridgeHandler
             dispose();
             initialize();
         }
-
     }
 
     @Override
