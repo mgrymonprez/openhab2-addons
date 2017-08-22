@@ -247,10 +247,16 @@ public class NetworkUtils {
      */
     public boolean nativePing(String hostname, int timeoutInMS) throws IOException, InterruptedException {
         Process proc;
+        // Yes, every bigger operating system has its own ping utility with a different command line
         if (SystemUtils.IS_OS_WINDOWS) {
             proc = new ProcessBuilder("ping", "-w", String.valueOf(timeoutInMS), "-n", "1", hostname).start();
-        } else { // We expect POSIX behaviour on any other OS
+        } else if (SystemUtils.IS_OS_MAC) {
+            proc = new ProcessBuilder("ping", "-t", String.valueOf(timeoutInMS), "-c", "1", hostname).start();
+        } else if (SystemUtils.IS_OS_UNIX) {
             proc = new ProcessBuilder("ping", "-w", String.valueOf(timeoutInMS / 1000), "-c", "1", hostname).start();
+        } else {
+            // We cannot estimate the command line for any other operating system and just return false
+            return false;
         }
 
         // The return code is 0 for a successful ping. 1 if device didn't respond and 2 if there is another error like
